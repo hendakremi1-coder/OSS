@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OSS Business Case | Expo 2030 Riyadh</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green:       #1A5C38;
+  --green-dark:  #0F3D25;
+  --green-mid:   #2E7D52;
+  --green-light: #EAF4EE;
+  --gold:        #B8962E;
+  --gold-light:  #FDF7EC;
+  --red-light:   #FDF0F0;
+  --red:         #C0392B;
+  --amber:       #E67E22;
+  --amber-light: #FEF9EC;
+  --white:       #FFFFFF;
+  --off:         #F8FAF9;
+  --border:      #D8E8DF;
+  --text:        #1A1A1A;
+  --muted:       #5A7065;
+  --chip-bg:     #E0EFE6;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--text); min-height: 100vh; }
+
+/* Header */
+.site-header {
+  background: var(--green-dark); padding: 16px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold);
+}
+.brand { display:flex; align-items:center; gap:14px; }
+.expo-badge {
+  width:40px; height:40px; background: var(--gold); border-radius: 8px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-weight:800; font-size:10px;
+  color: var(--green-dark); line-height:1.2; text-align:center;
+}
+.site-title { font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:#fff; }
+.site-sub   { font-size:11px; color:#A0C8B5; letter-spacing:.04em; }
+.header-right { font-size:11px; color:#7BADA0; letter-spacing:.04em; }
+
+/* Tab nav */
+.tab-nav { background: var(--green); display:flex; padding: 0 40px; gap:2px; overflow-x:auto; }
+.tab-btn {
+  background:none; border:none; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
+  color: #A0C8B5; padding: 13px 18px;
+  border-bottom: 3px solid transparent; transition: all .2s; white-space:nowrap;
+}
+.tab-btn:hover { color:#fff; }
+.tab-btn.active { color:#fff; border-bottom-color: var(--gold); }
+
+/* Layout */
+.main { max-width:1200px; margin:0 auto; padding:32px 40px; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* Section header */
+.section-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:28px; gap:20px; flex-wrap:wrap; }
+.section-title { font-family:'Syne',sans-serif; font-weight:800; font-size:26px; color:var(--green-dark); }
+.section-tag { background:var(--green); color:#fff; font-size:10px; font-weight:600; letter-spacing:.08em; padding:4px 10px; border-radius:4px; align-self:flex-start; margin-top:4px; }
+.section-desc { font-size:13.5px; color:var(--muted); margin-top:6px; max-width:680px; line-height:1.65; }
+
+/* Controls panel */
+.controls-panel { background:#fff; border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius:8px; padding:24px 28px; margin-bottom:28px; }
+.controls-panel h3 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--green); letter-spacing:.06em; text-transform:uppercase; margin-bottom:18px; }
+.controls-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:16px; }
+.ctrl label { display:block; font-size:11px; font-weight:500; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; margin-bottom:6px; }
+.ctrl input[type=range] { width:100%; accent-color:var(--green); cursor:pointer; }
+.ctrl .val-display { font-family:'Syne',sans-serif; font-weight:700; font-size:16px; color:var(--green-dark); margin-top:4px; }
+
+/* Metric cards */
+.metric-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap:16px; margin-bottom:28px; }
+.metric-card { background:#fff; border:1px solid var(--border); border-radius:8px; padding:20px 20px 18px; position:relative; overflow:hidden; }
+.metric-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background: var(--green); }
+.metric-card.gold::before { background:var(--gold); }
+.metric-card.red::before  { background:var(--red); }
+.metric-label { font-size:11px; font-weight:500; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; margin-bottom:8px; }
+.metric-value { font-family:'Syne',sans-serif; font-weight:800; font-size:26px; color:var(--green-dark); }
+.metric-value.red  { color:var(--red); }
+.metric-value.amber-v { color:var(--amber); }
+.metric-value.gold-v { color:var(--gold); }
+.metric-sub { font-size:11px; color:var(--muted); margin-top:4px; }
+
+/* Tables */
+.table-wrap { background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:28px; overflow-x:auto; }
+.table-wrap table { width:100%; border-collapse:collapse; font-size:13px; }
+.table-wrap th { background:var(--green); color:#fff; font-family:'Syne',sans-serif; font-weight:600; font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:12px 14px; text-align:left; }
+.table-wrap td { padding:11px 14px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:middle; }
+.table-wrap tr:last-child td { border-bottom:none; }
+.table-wrap tr:nth-child(even) td { background:var(--off); }
+.table-wrap tr.total-row td { background:var(--green-dark); color:#fff; font-weight:600; font-family:'Syne',sans-serif; border-bottom:none; }
+.table-wrap tr.gold-row td { background:var(--gold); color:#fff; font-weight:600; font-family:'Syne',sans-serif; border-bottom:none; }
+.table-wrap tr.highlight-row td { background:var(--green-light); }
+
+.badge { display:inline-block; font-size:10px; font-weight:600; padding:3px 8px; border-radius:12px; letter-spacing:.04em; }
+.badge.green { background:var(--green-light); color:var(--green); }
+.badge.amber { background:var(--amber-light); color:var(--amber); }
+.badge.red   { background:var(--red-light); color:var(--red); }
+
+/* Score bar */
+.score-bar-wrap { display:flex; align-items:center; gap:8px; }
+.score-bar { height:8px; border-radius:4px; background:var(--border); flex:1; overflow:hidden; min-width:60px; }
+.score-bar-fill { height:100%; border-radius:4px; transition:width .4s; }
+.score-bar-fill.green-fill { background:var(--green); }
+.score-bar-fill.gold-fill  { background:var(--gold); }
+.score-bar-fill.red-fill   { background:var(--red); }
+.score-num { font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:var(--green-dark); min-width:28px; text-align:right; }
+
+/* Recommendation box */
+.rec-box { background: var(--green-dark); color:#fff; border-radius:8px; padding:24px 28px; margin-bottom:28px; }
+.rec-label { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#A0C8B5; margin-bottom:8px; }
+.rec-title { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; margin-bottom:10px; }
+.rec-body  { font-size:13.5px; color:#C5DFD0; line-height:1.7; }
+
+/* Flag box */
+.flag-box { border:1px solid var(--border); border-left:4px solid var(--amber); border-radius:8px; background: var(--amber-light); padding:16px 20px; margin-bottom:20px; font-size:13px; color: #7A5010; line-height:1.6; }
+.flag-box.danger { border-left-color:var(--red); background:var(--red-light); color:#7A1010; }
+.flag-box strong { color:var(--amber); }
+.flag-box.danger strong { color:var(--red); }
+
+/* Governance */
+.gov-chart { display:flex; flex-direction:column; align-items:center; gap:0; margin:24px 0; }
+.gov-row { display:flex; gap:12px; justify-content:center; width:100%; flex-wrap:wrap; }
+.gov-node { background:#fff; border:2px solid var(--green); border-radius:8px; padding:12px 16px; text-align:center; min-width:150px; flex:1; max-width:220px; }
+.gov-node.top { background:var(--green-dark); border-color:var(--green-dark); }
+.gov-node.gold-node { border-color:var(--gold); }
+.node-title { font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:var(--green-dark); }
+.gov-node.top .node-title { color:#fff; }
+.gov-node.gold-node .node-title { color:var(--gold); }
+.node-sub { font-size:10px; color:var(--muted); margin-top:3px; line-height:1.4; }
+.gov-node.top .node-sub { color:#A0C8B5; }
+.gov-arrow { width:2px; height:20px; background:var(--border); margin:0 auto; }
+
+/* Bar chart */
+.bar-chart-wrap { background:#fff; border:1px solid var(--border); border-radius:8px; padding:24px; margin-bottom:28px; }
+.bar-chart-title { font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:var(--green-dark); margin-bottom:18px; }
+.bar-chart { display:flex; align-items:flex-end; gap:16px; height:180px; }
+.bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end; }
+.bar { width:100%; border-radius:5px 5px 0 0; min-height:4px; }
+.bar.green-bar { background:var(--green); }
+.bar.red-bar   { background:var(--red); }
+.bar-label { font-size:11px; color:var(--muted); text-align:center; }
+.bar-val   { font-family:'Syne',sans-serif; font-weight:700; font-size:11px; text-align:center; }
+
+/* RACI */
+.raci-r { color:var(--green); font-weight:700; font-size:13px; }
+.raci-a { color:var(--amber); font-weight:700; font-size:13px; }
+.raci-c { color:#888; font-weight:500; font-size:13px; }
+.raci-i { color:#BBB; font-weight:400; font-size:13px; }
+
+/* Pill */
+.pill-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.pill { background:var(--chip-bg); color:var(--green-dark); font-size:12px; font-weight:600; padding:5px 12px; border-radius:20px; }
+
+/* Benchmark tab */
+.bm-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.bm-filters { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.bm-filter-btn { font-size:12px; padding:5px 14px; border-radius:20px; border:0.5px solid rgba(0,0,0,0.2); background:#fff; color:#5f5e5a; cursor:pointer; transition:all .15s; font-family:inherit; }
+.bm-filter-btn:hover { background:#f0efe9; }
+.bm-filter-btn.active { background:#1a1a18; color:#fff; border-color:#1a1a18; }
+.bm-tbl-wrap { overflow-x:auto; border-radius:10px; border:0.5px solid rgba(0,0,0,0.12); }
+.bm-tbl-wrap table { width:100%; border-collapse:collapse; font-size:13px; background:#fff; min-width:960px; }
+.bm-tbl-wrap th { background:#f5f4f0; color:#5f5e5a; font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:.04em; padding:10px 12px; text-align:left; border-bottom:0.5px solid rgba(0,0,0,0.12); white-space:nowrap; }
+.bm-tbl-wrap td { padding:10px 12px; border-bottom:0.5px solid rgba(0,0,0,0.07); color:#1a1a18; vertical-align:top; line-height:1.45; }
+.bm-tbl-wrap tr:last-child td { border-bottom:none; }
+.bm-tbl-wrap tr:hover td { background:#fafaf7; }
+.bm-num { color:#888780; font-size:11px; width:28px; }
+.bm-name { font-weight:500; font-size:13px; }
+.bm-sub { color:#888780; font-size:11px; margin-top:2px; }
+.bm-badge { display:inline-block; font-size:10px; font-weight:500; padding:2px 8px; border-radius:20px; white-space:nowrap; }
+.bm-live    { background:#eaf3de; color:#3b6d11; }
+.bm-upcoming{ background:#faeeda; color:#854f0b; }
+.bm-legacy  { background:#e6f1fb; color:#185fa5; }
+.bm-tag { display:inline-block; font-size:10px; padding:1px 6px; border-radius:4px; margin:1px 2px 1px 0; background:#f0efe9; color:#5f5e5a; border:0.5px solid rgba(0,0,0,0.1); }
+.bm-score-bar { display:flex; align-items:center; gap:6px; }
+.bm-bar { height:6px; border-radius:3px; background:#e8e7e1; flex:1; min-width:40px; overflow:hidden; }
+.bm-fill { height:100%; border-radius:3px; background:#1d9e75; }
+.bm-score-num { font-size:11px; color:#5f5e5a; min-width:22px; }
+.gulf-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:2px; }
+.bm-muted { color:#888780; font-size:12px; }
+.bm-summary { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.bm-metric { background:#fff; border-radius:8px; border:0.5px solid rgba(0,0,0,0.12); padding:10px 16px; min-width:110px; }
+.bm-metric-label { font-size:11px; color:#5f5e5a; }
+.bm-metric-val { font-size:22px; font-weight:500; color:#1a1a18; }
+
+/* Util */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:28px; }
+@media(max-width:768px) { .two-col { grid-template-columns:1fr; } .main { padding:20px; } .tab-nav { padding:0 16px; } }
+.note-text { font-size:12px; color:var(--muted); font-style:italic; margin-top:12px; line-height:1.6; }
+.section-spacer { height:20px; }
+.sub-header { font-family:'Syne',sans-serif; font-weight:700; font-size:16px; color:var(--green-dark); margin-bottom:12px; margin-top:4px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="expo-badge">EXPO<br>2030</div>
+    <div>
+      <div class="site-title">OSS Business Case Intelligence Dashboard</div>
+      <div class="site-sub">EXPO 2030 RIYADH COMPANY &nbsp;|&nbsp; PROCUREMENT &amp; DIGITAL TRANSFORMATION &nbsp;|&nbsp; CONFIDENTIAL</div>
+    </div>
+  </div>
+  <div class="header-right">GAPS 1, 2, 3 + BENCHMARKS &nbsp;|&nbsp; MAY 2026</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('gap1',this)">GAP 1: Financial Model</button>
+  <button class="tab-btn" onclick="switchTab('gap2',this)">GAP 2: Delivery Model</button>
+  <button class="tab-btn" onclick="switchTab('gap3',this)">GAP 3: Governance &amp; RACI</button>
+  <button class="tab-btn" onclick="switchTab('benchmarks',this)">Benchmarks: OSS Platforms</button>
+</nav>
+
+<main class="main">
+
+<!-- ══════════════════════════ GAP 1 ══════════════════════════ -->
+<section id="gap1" class="tab-panel active">
+  <div class="section-header">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="section-title">Financial Model &amp; Investment Case</div>
+        <div class="section-tag">CRITICAL GAP</div>
+      </div>
+      <div class="section-desc">Adjust the variables below. All projections, scenario outputs, and revenue figures recalculate instantly. Lock these inputs only after the delivery model decision and fee rate negotiation are complete.</div>
+    </div>
+  </div>
+
+  <div class="controls-panel">
+    <h3>Variable Inputs — Edit to Recalculate Everything</h3>
+    <div class="controls-grid">
+      <div class="ctrl">
+        <label>Total Pavilions</label>
+        <input type="range" id="r_pavilions" min="150" max="280" step="5" value="220" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_pavilions">220</span></div>
+      </div>
+      <div class="ctrl">
+        <label>Platform Adoption Rate (%)</label>
+        <input type="range" id="r_adoption" min="30" max="95" step="5" value="65" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_adoption">65</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>Avg Transaction Vol / Pavilion (SAR M)</label>
+        <input type="range" id="r_txvol" min="2" max="15" step="0.5" value="6" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_txvol">6</span>M</div>
+      </div>
+      <div class="ctrl">
+        <label>Transaction Fee Rate (%)</label>
+        <input type="range" id="r_fee" min="0.25" max="3" step="0.25" value="1" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_fee">1.00</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>Registered Suppliers (by Expo open)</label>
+        <input type="range" id="r_suppliers" min="3000" max="30000" step="500" value="12000" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_suppliers">12,000</span></div>
+      </div>
+      <div class="ctrl">
+        <label>Avg Supplier Sub Fee (SAR / yr)</label>
+        <input type="range" id="r_subfee" min="300" max="4000" step="100" value="1500" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_subfee">1,500</span></div>
+      </div>
+      <div class="ctrl">
+        <label>CapEx (SAR M)</label>
+        <input type="range" id="r_capex" min="20" max="150" step="5" value="60" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_capex">60</span>M</div>
+      </div>
+      <div class="ctrl">
+        <label>Annual OpEx (SAR M)</label>
+        <input type="range" id="r_opex" min="5" max="40" step="1" value="12" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_opex">12</span>M</div>
+      </div>
+      <div class="ctrl">
+        <label>ERC Revenue Share — PPP Dynamic (%)</label>
+        <input type="range" id="r_ercshare" min="15" max="60" step="5" value="35" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_ercshare">35</span>%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="metric-label">Active Pavilions on Platform</div>
+      <div class="metric-value" id="m_active_pav">143</div>
+      <div class="metric-sub">of <span id="m_total_pav">220</span> total</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Transaction Volume (SAR M)</div>
+      <div class="metric-value" id="m_txvol_total">858</div>
+      <div class="metric-sub">Active pavilions x avg vol</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">5-Year Total Revenue (SAR M)</div>
+      <div class="metric-value" id="m_5yr_rev">—</div>
+      <div class="metric-sub">Base case</div>
+    </div>
+    <div class="metric-card red">
+      <div class="metric-label">5-Year Total Cost (SAR M)</div>
+      <div class="metric-value red" id="m_5yr_cost">—</div>
+      <div class="metric-sub">CapEx + OpEx</div>
+    </div>
+    <div class="metric-card gold">
+      <div class="metric-label">Net 5-Year Position (SAR M)</div>
+      <div class="metric-value gold-v" id="m_net">—</div>
+      <div class="metric-sub" id="m_breakeven">Breakeven: —</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">ERC Revenue Share (SAR M)</div>
+      <div class="metric-value" id="m_erc_share">—</div>
+      <div class="metric-sub">PPP Dynamic model</div>
+    </div>
+  </div>
+
+  <div class="bar-chart-wrap">
+    <div class="bar-chart-title">Revenue vs. Cost by Year (SAR Millions)</div>
+    <div class="bar-chart" id="bar_chart"></div>
+    <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
+        <div style="width:12px;height:12px;border-radius:2px;background:var(--green);"></div> Revenue
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
+        <div style="width:12px;height:12px;border-radius:2px;background:var(--red);"></div> Cost (CapEx + OpEx)
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-header">5-Year Financial Projection</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Item (SAR M)</th>
+          <th>2027</th>
+          <th>2028-29</th>
+          <th>2030 (Expo)</th>
+          <th>2031</th>
+          <th>5-Yr Total</th>
+        </tr>
+      </thead>
+      <tbody id="proj_tbody"></tbody>
+    </table>
+  </div>
+  <p class="note-text">Under the PPP Dynamic model, ERC's direct 2027 cash exposure reduces to OpEx only. CapEx is recovered by the delivery partner from platform revenues before the revenue-sharing split activates.</p>
+
+  <div class="section-spacer"></div>
+  <div class="sub-header">Scenario Comparison</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Downside (45% adoption, 0.5% fee)</th>
+          <th>Base Case (current sliders)</th>
+          <th>Upside (85% adoption, 1.75% fee)</th>
+        </tr>
+      </thead>
+      <tbody id="scenario_tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="sub-header">Key Assumptions &amp; Confidence</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Assumption</th><th>Value Used</th><th>Confidence</th></tr></thead>
+      <tbody>
+        <tr><td>Total pavilion count</td><td id="a_pav">220</td><td><span class="badge green">HIGH — confirmed by ERC dossier</span></td></tr>
+        <tr><td>Transaction fee rate</td><td id="a_fee">1.00%</td><td><span class="badge red">LOW — TBD in negotiation</span></td></tr>
+        <tr><td>ERC revenue share under PPP</td><td id="a_ercshare">35%</td><td><span class="badge red">LOW — TBD in negotiation</span></td></tr>
+        <tr><td>Platform CapEx</td><td id="a_capex">SAR 60M</td><td><span class="badge amber">MEDIUM — ballpark pending tech partner selection</span></td></tr>
+        <tr><td>Supplier subscription fee</td><td id="a_subfee">SAR 1,500/yr</td><td><span class="badge amber">MEDIUM</span></td></tr>
+        <tr><td>Post-Expo B2B legacy revenue included</td><td>Yes (SAR 15M in 2031)</td><td><span class="badge red">LOW — depends on post-Expo strategy decision</span></td></tr>
+        <tr><td>Government API integration cost</td><td>Included in CapEx (~SAR 12M)</td><td><span class="badge red">LOW — pending ministry readiness assessment</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ GAP 2 ══════════════════════════ -->
+<section id="gap2" class="tab-panel">
+  <div class="section-header">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="section-title">Delivery Model Recommendation</div>
+        <div class="section-tag">CRITICAL GAP</div>
+      </div>
+      <div class="section-desc">The business case presents three models but makes no recommendation. Adjust the scoring weights below to see how the recommended model shifts under different strategic priorities.</div>
+    </div>
+  </div>
+
+  <div class="flag-box">
+    <strong>Decision Required:</strong> Delivery model selection requires CTO and CEO sign-off. Until decided, the fee rate, CapEx responsibility, and revenue share structure in GAP 1 all remain open.
+  </div>
+
+  <div class="controls-panel">
+    <h3>Scoring Criteria Weights — Adjust to Reflect ERC Priorities</h3>
+    <div class="controls-grid">
+      <div class="ctrl">
+        <label>Speed to Delivery</label>
+        <input type="range" id="w_speed" min="5" max="40" step="5" value="25" oninput="recalcDelivery()"/>
+        <div class="val-display"><span id="wv_speed">25</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>Cost to ERC</label>
+        <input type="range" id="w_cost" min="5" max="40" step="5" value="20" oninput="recalcDelivery()"/>
+        <div class="val-display"><span id="wv_cost">20</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>Risk Level (lower = better)</label>
+        <input type="range" id="w_risk" min="5" max="40" step="5" value="20" oninput="recalcDelivery()"/>
+        <div class="val-display"><span id="wv_risk">20</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>ERC Control Retention</label>
+        <input type="range" id="w_control" min="5" max="40" step="5" value="15" oninput="recalcDelivery()"/>
+        <div class="val-display"><span id="wv_control">15</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>Post-Expo Viability</label>
+        <input type="range" id="w_postexpo" min="5" max="40" step="5" value="10" oninput="recalcDelivery()"/>
+        <div class="val-display"><span id="wv_postexpo">10</span>%</div>
+      </div>
+      <div class="ctrl">
+        <label>IP Ownership</label>
+        <input type="range" id="w_ip" min="5" max="40" step="5" value="10" oninput="recalcDelivery()"/>
+        <div class="val-display"><span id="wv_ip">10</span>%</div>
+      </div>
+    </div>
+    <p class="note-text" id="weight_total_note">Weight total: <strong id="weight_total">100%</strong> — adjust sliders to explore how priority shifts change the recommendation.</p>
+  </div>
+
+  <div class="rec-box">
+    <div class="rec-label">Model Recommendation (based on current weights)</div>
+    <div class="rec-title" id="delivery_rec_title">PPP Dynamic (Elm-Funded)</div>
+    <div class="rec-body" id="delivery_rec_body">Elm funds Year 1 CapEx and OpEx, recovers investment from revenues, then shares profits with ERC. Recommended given the hard 2030 deadline, capacity constraints, and zero upfront capital exposure for ERC.</div>
+  </div>
+
+  <div class="sub-header">Delivery Model Scoring Matrix</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>Weight</th>
+          <th>PPP Dynamic<br><span style="font-weight:400;font-size:10px;">(Elm funds Year 1)</span></th>
+          <th>PPP Co-Investment<br><span style="font-weight:400;font-size:10px;">(Both parties)</span></th>
+          <th>Dedicated Budget<br><span style="font-weight:400;font-size:10px;">(PO Model)</span></th>
+          <th>In-House<br><span style="font-weight:400;font-size:10px;">(ERC-led)</span></th>
+        </tr>
+      </thead>
+      <tbody id="delivery_tbody"></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td>WEIGHTED TOTAL</td><td></td>
+          <td id="dt_ppp_dynamic">--</td>
+          <td id="dt_ppp_co">--</td>
+          <td id="dt_po">--</td>
+          <td id="dt_inhouse">--</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <p class="note-text">Raw scores are 1-5. Weighted total is out of 100. PPP Dynamic scores are set based on the Elm proposal and ERC's 2030 delivery constraints.</p>
+
+  <div class="section-spacer"></div>
+  <div class="sub-header">Model Comparison: Key Dimensions</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Dimension</th><th>PPP Dynamic</th><th>PPP Co-Investment</th><th>Dedicated Budget (PO)</th><th>In-House</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Who funds CapEx</strong></td><td>Elm (Year 1+)</td><td>Both parties split</td><td>ERC pays per PO</td><td>ERC fully</td></tr>
+        <tr><td><strong>ERC upfront cash exposure</strong></td><td><span class="badge green">Zero in Year 1</span></td><td><span class="badge amber">Partial</span></td><td><span class="badge red">Full annual budget</span></td><td><span class="badge red">Full CapEx + OpEx</span></td></tr>
+        <tr><td><strong>ERC revenue</strong></td><td>Revenue share (% TBD)</td><td>Revenue share from Year 2</td><td>None (fixed fee)</td><td>100% of revenue</td></tr>
+        <tr><td><strong>IP ownership</strong></td><td>Shared or Elm-led</td><td>Shared (negotiated)</td><td>ERC-owned</td><td>ERC-owned</td></tr>
+        <tr><td><strong>Delivery speed</strong></td><td><span class="badge green">Fastest</span></td><td><span class="badge green">Fast</span></td><td><span class="badge amber">Medium</span></td><td><span class="badge red">Slowest</span></td></tr>
+        <tr><td><strong>ERC control</strong></td><td><span class="badge amber">Shared with partner</span></td><td><span class="badge amber">Shared</span></td><td><span class="badge green">High</span></td><td><span class="badge green">Full</span></td></tr>
+        <tr><td><strong>Primary risk</strong></td><td>Partner dependency, IP terms</td><td>Joint investment alignment</td><td>Budget overrun, scope creep</td><td>Timeline, capacity</td></tr>
+        <tr><td><strong>Post-Expo viability</strong></td><td><span class="badge green">Strong (partner has incentive)</span></td><td><span class="badge green">Strong</span></td><td><span class="badge amber">Moderate</span></td><td><span class="badge amber">Moderate</span></td></tr>
+        <tr><td><strong>Active precedent</strong></td><td>Elm proposal (live)</td><td>EY PPP framework</td><td>Standard govt. delivery</td><td>No Expo precedent</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-spacer"></div>
+  <div class="sub-header">Risk Profile by Model</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Risk</th><th>PPP Dynamic</th><th>PPP Co-Invest</th><th>PO Model</th><th>In-House</th></tr></thead>
+      <tbody>
+        <tr><td>Timeline overrun</td><td><span class="badge green">Low</span></td><td><span class="badge green">Low</span></td><td><span class="badge amber">Medium</span></td><td><span class="badge red">High</span></td></tr>
+        <tr><td>ERC budget exposure</td><td><span class="badge green">Low</span></td><td><span class="badge amber">Medium</span></td><td><span class="badge red">High</span></td><td><span class="badge red">High</span></td></tr>
+        <tr><td>Vendor lock-in</td><td><span class="badge red">High</span></td><td><span class="badge amber">Medium</span></td><td><span class="badge green">Low</span></td><td><span class="badge green">None</span></td></tr>
+        <tr><td>IP / platform ownership risk</td><td><span class="badge amber">Medium</span></td><td><span class="badge amber">Medium</span></td><td><span class="badge green">Low</span></td><td><span class="badge green">None</span></td></tr>
+        <tr><td>Revenue shortfall risk</td><td><span class="badge amber">Shared with partner</span></td><td><span class="badge amber">Shared</span></td><td><span class="badge green">None (fixed)</span></td><td><span class="badge red">Full to ERC</span></td></tr>
+        <tr><td>Capacity / talent risk</td><td><span class="badge green">Low (partner delivers)</span></td><td><span class="badge green">Low</span></td><td><span class="badge amber">Medium</span></td><td><span class="badge red">Very High</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flag-box danger">
+    <strong>Escalation Required:</strong> Delivery model selection must be approved in writing by the CTO and CEO before any further procurement or technical scoping proceeds. Once selected, the fee rate, CapEx responsibility, and revenue share in GAP 1 can be locked.
+  </div>
+</section>
+
+<!-- ══════════════════════════ GAP 3 ══════════════════════════ -->
+<section id="gap3" class="tab-panel">
+  <div class="section-header">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="section-title">Governance Framework &amp; RACI</div>
+        <div class="section-tag">CRITICAL GAP</div>
+      </div>
+      <div class="section-desc">Neither the OSS Business Case nor the Procurement Hub BC contains a governance structure. The OSS Advisory Brief explicitly requires this as a deliverable. This section is ready to insert.</div>
+    </div>
+  </div>
+
+  <div class="sub-header">Governance Hierarchy</div>
+  <div class="bar-chart-wrap" style="padding:28px;">
+    <div class="gov-chart">
+      <div class="gov-row">
+        <div class="gov-node top" style="max-width:340px;">
+          <div class="node-title">Executive Steering Committee</div>
+          <div class="node-sub">CEO / CTO / CFO &nbsp;|&nbsp; Strategic decisions, delivery model approval, budget sign-off</div>
+        </div>
+      </div>
+      <div class="gov-arrow"></div>
+      <div class="gov-row">
+        <div class="gov-node">
+          <div class="node-title">Joint Programme Board</div>
+          <div class="node-sub">ERC + PPP Partner &nbsp;|&nbsp; Monthly. Milestones, SLA, revenue tracking</div>
+        </div>
+        <div class="gov-node gold-node">
+          <div class="node-title">International Relations Track</div>
+          <div class="node-sub">Coordinates OSS strategy advisory and Procurement Hub tech track</div>
+        </div>
+      </div>
+      <div class="gov-arrow"></div>
+      <div class="gov-row">
+        <div class="gov-node">
+          <div class="node-title">Programme Management Office</div>
+          <div class="node-sub">Hend + Fawaz &nbsp;|&nbsp; Day-to-day delivery, vendor management, reporting</div>
+        </div>
+        <div class="gov-node">
+          <div class="node-title">Government Services Working Group</div>
+          <div class="node-sub">~30 government service integrations. Ministry liaisons. API readiness</div>
+        </div>
+        <div class="gov-node">
+          <div class="node-title">Technology Partner Operations</div>
+          <div class="node-sub">Elm / selected vendor. Platform build, integrations, uptime SLA</div>
+        </div>
+      </div>
+      <div class="gov-arrow"></div>
+      <div class="gov-row">
+        <div class="gov-node" style="max-width:480px;border-style:dashed;">
+          <div class="node-title">Evaluation Team (Technical + Financial)</div>
+          <div class="node-sub">Faisal AlBuluwi &nbsp;|&nbsp; Faisal Aljuraifani &nbsp;|&nbsp; Lina Altamimi &nbsp;|&nbsp; Ahlam Amleh &nbsp;|&nbsp; Abdulelah Alshahrani &nbsp;|&nbsp; Saud AlShedi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pill-row">
+    <div class="pill" style="background:#E0EFE6;color:var(--green);"><strong>R</strong> = Responsible</div>
+    <div class="pill" style="background:var(--amber-light);color:var(--amber);"><strong>A</strong> = Accountable</div>
+    <div class="pill" style="background:#F0F0F0;color:#555;"><strong>C</strong> = Consulted</div>
+    <div class="pill" style="background:#F8F8F8;color:#999;"><strong>I</strong> = Informed</div>
+  </div>
+
+  <div class="sub-header">RACI Matrix</div>
+  <div class="table-wrap">
+    <table style="min-width:820px;">
+      <thead>
+        <tr>
+          <th style="min-width:190px;">Activity</th>
+          <th>Exec Steering</th>
+          <th>Joint Board</th>
+          <th>PMO</th>
+          <th>Govt. WG</th>
+          <th>Tech Partner</th>
+          <th>Intl. Team</th>
+          <th>Eval. Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Delivery model decision</strong></td><td><span class="raci-a">A</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td><td><span class="raci-c">C</span></td><td><span class="raci-c">C</span></td></tr>
+        <tr><td><strong>OSS strategy development</strong></td><td><span class="raci-a">A</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td></tr>
+        <tr><td><strong>Vendor selection (RFP)</strong></td><td><span class="raci-a">A</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td></tr>
+        <tr><td><strong>Government API integration</strong></td><td><span class="raci-a">A</span></td><td><span class="raci-c">C</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td></tr>
+        <tr><td><strong>Platform build and delivery</strong></td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td></tr>
+        <tr><td><strong>Participant onboarding</strong></td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-r">R</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td></tr>
+        <tr><td><strong>SLA enforcement</strong></td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td></tr>
+        <tr><td><strong>Revenue reconciliation</strong></td><td><span class="raci-a">A</span></td><td><span class="raci-r">R</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td></tr>
+        <tr><td><strong>Platform operations (live)</strong></td><td><span class="raci-i">I</span></td><td><span class="raci-a">A</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td><td><span class="raci-r">R</span></td><td><span class="raci-i">I</span></td><td><span class="raci-i">I</span></td></tr>
+        <tr><td><strong>Post-Expo marketplace transition</strong></td><td><span class="raci-a">A</span></td><td><span class="raci-r">R</span></td><td><span class="raci-r">R</span></td><td><span class="raci-c">C</span></td><td><span class="raci-r">R</span></td><td><span class="raci-c">C</span></td><td><span class="raci-i">I</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-spacer"></div>
+  <div class="sub-header">Performance KPIs by Phase</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th>KPI</th><th>Target</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr class="highlight-row"><td rowspan="3" style="font-weight:600;color:var(--green);">Phase 1 — Foundation</td><td>Delivery model decision confirmed</td><td>Q3 2026</td><td>CTO / Fawaz</td></tr>
+        <tr class="highlight-row"><td>Governance structure approved</td><td>Q3 2026</td><td>Exec Steering</td></tr>
+        <tr class="highlight-row"><td>Government entity mapping completed</td><td>Q4 2026</td><td>PMO + Govt. WG</td></tr>
+        <tr><td rowspan="3" style="font-weight:600;color:var(--green);">Phase 2 — Build</td><td>Platform go-live (supplier registration open)</td><td>Q2 2028</td><td>Tech Partner</td></tr>
+        <tr><td>Registered suppliers on platform</td><td>5,000 by Q4 2028</td><td>Tech Partner + PMO</td></tr>
+        <tr><td>Government APIs integrated</td><td>Min. 15 of ~30 services</td><td>Govt. WG</td></tr>
+        <tr class="highlight-row"><td rowspan="4" style="font-weight:600;color:var(--green);">Phase 3 — Expo Live</td><td>Pavilion adoption rate</td><td>Min. 65%</td><td>PMO</td></tr>
+        <tr class="highlight-row"><td>Platform uptime SLA</td><td>99.5%</td><td>Tech Partner</td></tr>
+        <tr class="highlight-row"><td>Procurement cycle time vs. baseline</td><td>40% reduction</td><td>Tech Partner + PMO</td></tr>
+        <tr class="highlight-row"><td>Participant satisfaction score</td><td>Min. 4.0 / 5.0</td><td>PMO</td></tr>
+        <tr><td rowspan="2" style="font-weight:600;color:var(--green);">Phase 4 — Post-Expo</td><td>Total transaction value processed</td><td>SAR 500M+</td><td>Joint Board</td></tr>
+        <tr><td>Platform revenue vs. projection</td><td>Within 15% of base case</td><td>Joint Board</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-spacer"></div>
+  <div class="sub-header">Escalation Paths</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Trigger</th><th>Escalates To</th><th>Timeframe</th></tr></thead>
+      <tbody>
+        <tr><td>Delivery model not decided within agreed window</td><td>CEO directly</td><td>Immediate</td></tr>
+        <tr><td>Government ministry not committing to API access</td><td>Exec Steering + ministry counterpart</td><td>Within 5 business days</td></tr>
+        <tr><td>Platform milestone slipping by 2+ weeks</td><td>Joint Programme Board emergency session</td><td>Within 3 business days</td></tr>
+        <tr><td>Revenue shortfall greater than 20% vs. projection</td><td>Executive Steering Committee + CFO</td><td>At monthly board review</td></tr>
+        <tr><td>SLA breach by technology partner</td><td>Joint Board + legal team</td><td>Within 48 hours</td></tr>
+        <tr><td>Conflict between OSS strategy track and Procurement Hub tech track</td><td>PMO mediation, then CTO if unresolved</td><td>5 business days</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ BENCHMARKS ══════════════════════════ -->
+<section id="benchmarks" class="tab-panel bm-body">
+  <div class="section-header">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="section-title">OSS Benchmarks: Global Platforms</div>
+        <div class="section-tag">REFERENCE</div>
+      </div>
+      <div class="section-desc">30 government-led digital platforms ranked by services, API depth, scale, and Gulf relevance. Use as benchmark evidence in the business case and RFP.</div>
+    </div>
+  </div>
+
+  <div class="bm-summary">
+    <div class="bm-metric"><div class="bm-metric-label">Platforms</div><div class="bm-metric-val">30</div></div>
+    <div class="bm-metric"><div class="bm-metric-label">Live &amp; proven</div><div class="bm-metric-val" id="bm-live-count">—</div></div>
+    <div class="bm-metric"><div class="bm-metric-label">Upcoming</div><div class="bm-metric-val" id="bm-up-count">—</div></div>
+    <div class="bm-metric"><div class="bm-metric-label">Gulf-relevant (4-5 score)</div><div class="bm-metric-val" id="bm-gulf-count">—</div></div>
+  </div>
+
+  <div class="bm-filters">
+    <button class="bm-filter-btn active" onclick="bmFilter('all',this)">All (30)</button>
+    <button class="bm-filter-btn" onclick="bmFilter('live',this)">Live only</button>
+    <button class="bm-filter-btn" onclick="bmFilter('upcoming',this)">Upcoming</button>
+    <button class="bm-filter-btn" onclick="bmFilter('gulf',this)">Gulf-relevant</button>
+    <button class="bm-filter-btn" onclick="bmFilter('visa',this)">Has visa services</button>
+    <button class="bm-filter-btn" onclick="bmFilter('procurement',this)">Has procurement</button>
+  </div>
+
+  <div class="bm-tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Platform / Event</th>
+          <th>Status</th>
+          <th>Origin</th>
+          <th>Services Covered</th>
+          <th>Tech &amp; API Depth</th>
+          <th>Scale</th>
+          <th>Gulf</th>
+          <th>Score /10</th>
+        </tr>
+      </thead>
+      <tbody id="bm-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ── Tab switching ──────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Number helpers ─────────────────────────────────────────────────
+function r(n, dec) {
+  dec = dec === undefined ? 1 : dec;
+  var v = Math.round(n * Math.pow(10, dec)) / Math.pow(10, dec);
+  return v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+}
+function fmtSigned(n) {
+  var v = Math.round(n * 10) / 10;
+  return (v >= 0 ? '+' : '') + v.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+}
+function neg(n) { return '(' + r(n) + ')'; }
+
+// ── GAP 1: FINANCIAL MODEL ─────────────────────────────────────────
+function recalcAll() {
+  var pavilions = +document.getElementById('r_pavilions').value;
+  var adoption  = +document.getElementById('r_adoption').value / 100;
+  var txvol     = +document.getElementById('r_txvol').value;
+  var fee       = +document.getElementById('r_fee').value / 100;
+  var suppliers = +document.getElementById('r_suppliers').value;
+  var subfeeAmt = +document.getElementById('r_subfee').value;
+  var capex     = +document.getElementById('r_capex').value;
+  var opex      = +document.getElementById('r_opex').value;
+  var ercshare  = +document.getElementById('r_ercshare').value / 100;
+
+  // Update slider display values
+  document.getElementById('v_pavilions').textContent = pavilions;
+  document.getElementById('v_adoption').textContent  = Math.round(adoption * 100);
+  document.getElementById('v_txvol').textContent     = txvol;
+  document.getElementById('v_fee').textContent       = (fee * 100).toFixed(2);
+  document.getElementById('v_suppliers').textContent = suppliers.toLocaleString();
+  document.getElementById('v_subfee').textContent    = subfeeAmt.toLocaleString();
+  document.getElementById('v_capex').textContent     = capex;
+  document.getElementById('v_opex').textContent      = opex;
+  document.getElementById('v_ercshare').textContent  = Math.round(ercshare * 100);
+
+  // Update assumptions table
+  document.getElementById('a_pav').textContent     = pavilions;
+  document.getElementById('a_fee').textContent     = (fee * 100).toFixed(2) + '%';
+  document.getElementById('a_capex').textContent   = 'SAR ' + capex + 'M';
+  document.getElementById('a_subfee').textContent  = 'SAR ' + subfeeAmt.toLocaleString() + '/yr';
+  document.getElementById('a_ercshare').textContent = Math.round(ercshare * 100) + '%';
+
+  var activePav   = Math.round(pavilions * adoption);
+  var totalTxVol  = activePav * txvol;
+
+  // Year-by-year revenue (SAR M)
+  var txRev2027 = 0;
+  var txRev2829 = totalTxVol * fee * 0.25;
+  var txRev2030 = totalTxVol * fee;
+  var txRev2031 = totalTxVol * fee * 0.15;
+
+  var subRevPerYear = (suppliers * subfeeAmt) / 1e6;
+  var subRev2027 = subRevPerYear * 0.15;
+  var subRev2829 = subRevPerYear * 0.6;
+  var subRev2030 = subRevPerYear;
+  var subRev2031 = subRevPerYear * 0.7;
+
+  var vasRev2027 = 0;
+  var vasRev2829 = activePav * 0.15 * 0.3;
+  var vasRev2030 = activePav * 0.3 * 0.4;
+  var vasRev2031 = 15;
+
+  var rev2027 = txRev2027 + subRev2027 + vasRev2027;
+  var rev2829 = txRev2829 + subRev2829 + vasRev2829;
+  var rev2030 = txRev2030 + subRev2030 + vasRev2030;
+  var rev2031 = txRev2031 + subRev2031 + vasRev2031;
+  var revTotal = rev2027 + rev2829 + rev2030 + rev2031;
+
+  var cost2027 = capex * 0.65 + opex;
+  var cost2829 = capex * 0.35 + opex * 1.5;
+  var cost2030 = opex * 1.5;
+  var cost2031 = opex * 0.8;
+  var costTotal = cost2027 + cost2829 + cost2030 + cost2031;
+
+  var netTotal     = revTotal - costTotal;
+  var ercShareTotal = revTotal * ercshare;
+
+  // Breakeven
+  var cum = -cost2027;
+  var beven = 'Post-2031';
+  cum += rev2027;
+  if (cum >= 0) { beven = '2027'; }
+  else {
+    cum += rev2829 - cost2829;
+    if (cum >= 0) { beven = '2028-2029'; }
+    else {
+      cum += rev2030 - cost2030;
+      if (cum >= 0) { beven = '2030 (Expo Year)'; }
+      else {
+        cum += rev2031 - cost2031;
+        if (cum >= 0) { beven = '2031'; }
+      }
+    }
+  }
+
+  // KPI cards
+  document.getElementById('m_active_pav').textContent  = activePav;
+  document.getElementById('m_total_pav').textContent   = pavilions;
+  document.getElementById('m_txvol_total').textContent = r(totalTxVol, 0);
+  document.getElementById('m_5yr_rev').textContent     = r(revTotal, 0);
+  document.getElementById('m_5yr_cost').textContent    = r(costTotal, 0);
+  document.getElementById('m_net').textContent         = fmtSigned(netTotal);
+  document.getElementById('m_net').className = 'metric-value ' + (netTotal >= 0 ? 'gold-v' : 'red');
+  document.getElementById('m_breakeven').textContent   = 'Breakeven: ' + beven;
+  document.getElementById('m_erc_share').textContent   = r(ercShareTotal, 0);
+
+  // Projection table
+  var cum2027 = rev2027 - cost2027;
+  var cum2829 = cum2027 + rev2829 - cost2829;
+  var cum2030 = cum2829 + rev2030 - cost2030;
+
+  document.getElementById('proj_tbody').innerHTML =
+    '<tr style="background:var(--red-light)">' +
+      '<td>Platform Development (CapEx)</td>' +
+      '<td style="color:var(--red)">' + neg(capex * 0.65) + '</td>' +
+      '<td style="color:var(--red)">' + neg(capex * 0.35) + '</td>' +
+      '<td>—</td><td>—</td>' +
+      '<td style="color:var(--red);font-weight:600">' + neg(capex) + '</td>' +
+    '</tr>' +
+    '<tr style="background:var(--red-light)">' +
+      '<td>Annual OpEx (Platform + Staff + Integrations)</td>' +
+      '<td style="color:var(--red)">' + neg(opex) + '</td>' +
+      '<td style="color:var(--red)">' + neg(opex * 1.5) + '</td>' +
+      '<td style="color:var(--red)">' + neg(opex * 1.5) + '</td>' +
+      '<td style="color:var(--red)">' + neg(opex * 0.8) + '</td>' +
+      '<td style="color:var(--red);font-weight:600">' + neg(opex * 4.8) + '</td>' +
+    '</tr>' +
+    '<tr style="background:var(--green-light)">' +
+      '<td>Transaction Fee Revenue</td>' +
+      '<td>—</td>' +
+      '<td>' + r(txRev2829) + '</td>' +
+      '<td>' + r(txRev2030) + '</td>' +
+      '<td>' + r(txRev2031) + '</td>' +
+      '<td style="font-weight:600">' + r(txRev2829 + txRev2030 + txRev2031) + '</td>' +
+    '</tr>' +
+    '<tr style="background:var(--green-light)">' +
+      '<td>Supplier Subscription Revenue</td>' +
+      '<td>' + r(subRev2027) + '</td>' +
+      '<td>' + r(subRev2829) + '</td>' +
+      '<td>' + r(subRev2030) + '</td>' +
+      '<td>' + r(subRev2031) + '</td>' +
+      '<td style="font-weight:600">' + r(subRev2027 + subRev2829 + subRev2030 + subRev2031) + '</td>' +
+    '</tr>' +
+    '<tr style="background:var(--green-light)">' +
+      '<td>Permit Packages &amp; Value-Added Services</td>' +
+      '<td>—</td>' +
+      '<td>' + r(vasRev2829) + '</td>' +
+      '<td>' + r(vasRev2030) + '</td>' +
+      '<td>' + r(vasRev2031) + '</td>' +
+      '<td style="font-weight:600">' + r(vasRev2829 + vasRev2030 + vasRev2031) + '</td>' +
+    '</tr>' +
+    '<tr class="total-row">' +
+      '<td>TOTAL REVENUE</td>' +
+      '<td>' + r(rev2027) + '</td><td>' + r(rev2829) + '</td><td>' + r(rev2030) + '</td><td>' + r(rev2031) + '</td>' +
+      '<td>' + r(revTotal) + '</td>' +
+    '</tr>' +
+    '<tr class="total-row" style="background:var(--green-dark)">' +
+      '<td>TOTAL COST (CapEx + OpEx)</td>' +
+      '<td>' + neg(cost2027) + '</td><td>' + neg(cost2829) + '</td><td>' + neg(cost2030) + '</td><td>' + neg(cost2031) + '</td>' +
+      '<td>' + neg(costTotal) + '</td>' +
+    '</tr>' +
+    '<tr class="gold-row">' +
+      '<td>NET POSITION (Cumulative)</td>' +
+      '<td>' + fmtSigned(cum2027) + '</td>' +
+      '<td>' + fmtSigned(cum2829) + '</td>' +
+      '<td>' + fmtSigned(cum2030) + '</td>' +
+      '<td>' + fmtSigned(netTotal) + '</td>' +
+      '<td>' + fmtSigned(netTotal) + '</td>' +
+    '</tr>';
+
+  // Scenario comparison
+  function calcScenario(adoptPct, feePct, supplierMult) {
+    var ap   = Math.round(pavilions * adoptPct);
+    var tv   = ap * txvol;
+    var f    = feePct / 100;
+    var txR  = tv * f + tv * f * 0.25 + tv * f * 0.15;
+    var sR   = suppliers * supplierMult * subfeeAmt / 1e6 * 2.45;
+    var vR   = ap * 0.2 * 0.3 + ap * 0.12 * 0.3 + 10;
+    var totR = txR + sR + vR;
+    var net5 = totR - costTotal;
+    var erc  = totR * ercshare;
+    var bv   = 'Post-2031';
+    if (net5 > 0) bv = '2030 or earlier';
+    return { totR: totR, net5: net5, erc: erc, bv: bv };
+  }
+
+  var ds = calcScenario(0.45, 0.5,  0.5);
+  var bs = { totR: revTotal, net5: netTotal, erc: ercShareTotal, bv: beven };
+  var us = calcScenario(0.85, 1.75, 1.5);
+
+  document.getElementById('scenario_tbody').innerHTML =
+    '<tr>' +
+      '<td>Adoption Rate</td>' +
+      '<td>45%</td>' +
+      '<td>' + Math.round(adoption * 100) + '% (current)</td>' +
+      '<td>85%</td>' +
+    '</tr>' +
+    '<tr>' +
+      '<td>Transaction Fee</td>' +
+      '<td>0.5%</td>' +
+      '<td>' + (fee * 100).toFixed(2) + '% (current)</td>' +
+      '<td>1.75%</td>' +
+    '</tr>' +
+    '<tr>' +
+      '<td>5-Year Total Revenue (SAR M)</td>' +
+      '<td style="background:var(--red-light)">' + r(ds.totR, 0) + '</td>' +
+      '<td style="background:var(--amber-light);font-weight:600">' + r(bs.totR, 0) + '</td>' +
+      '<td style="background:var(--green-light)">' + r(us.totR, 0) + '</td>' +
+    '</tr>' +
+    '<tr>' +
+      '<td>5-Year Net Position (SAR M)</td>' +
+      '<td style="background:var(--red-light);color:' + (ds.net5 >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + fmtSigned(ds.net5) + '</td>' +
+      '<td style="background:var(--amber-light);font-weight:600;color:' + (bs.net5 >= 0 ? 'var(--green)' : 'var(--red)') + '">' + fmtSigned(bs.net5) + '</td>' +
+      '<td style="background:var(--green-light);color:var(--green);font-weight:600">' + fmtSigned(us.net5) + '</td>' +
+    '</tr>' +
+    '<tr>' +
+      '<td>ERC Revenue Share (SAR M)</td>' +
+      '<td>' + r(ds.erc, 0) + '</td>' +
+      '<td style="font-weight:600">' + r(bs.erc, 0) + '</td>' +
+      '<td>' + r(us.erc, 0) + '</td>' +
+    '</tr>' +
+    '<tr>' +
+      '<td>Breakeven Point</td>' +
+      '<td style="background:var(--red-light)">' + ds.bv + '</td>' +
+      '<td style="background:var(--amber-light)">' + bs.bv + '</td>' +
+      '<td style="background:var(--green-light)">' + us.bv + '</td>' +
+    '</tr>';
+
+  // Bar chart
+  var years = [
+    { label: '2027',   rev: rev2027, cost: cost2027 },
+    { label: '2028-29',rev: rev2829, cost: cost2829 },
+    { label: '2030',   rev: rev2030, cost: cost2030 },
+    { label: '2031',   rev: rev2031, cost: cost2031 }
+  ];
+  var maxVal = 0;
+  for (var i = 0; i < years.length; i++) {
+    if (years[i].rev > maxVal)  maxVal = years[i].rev;
+    if (years[i].cost > maxVal) maxVal = years[i].cost;
+  }
+  var H = 160;
+  var html = '';
+  for (var j = 0; j < years.length; j++) {
+    var y  = years[j];
+    var rh = Math.max(4, (y.rev  / maxVal) * H);
+    var ch = Math.max(4, (y.cost / maxVal) * H);
+    html +=
+      '<div class="bar-col" style="gap:4px;">' +
+        '<div style="display:flex;gap:4px;align-items:flex-end;height:' + H + 'px;">' +
+          '<div class="bar green-bar" style="width:36px;height:' + rh + 'px;"></div>' +
+          '<div class="bar red-bar"   style="width:36px;height:' + ch + 'px;"></div>' +
+        '</div>' +
+        '<div class="bar-val" style="color:var(--green);">+' + r(y.rev, 0) + '</div>' +
+        '<div class="bar-val" style="color:var(--red);">(' + r(y.cost, 0) + ')</div>' +
+        '<div class="bar-label">' + y.label + '</div>' +
+      '</div>';
+  }
+  document.getElementById('bar_chart').innerHTML = html;
+}
+
+// ── GAP 2: DELIVERY MODEL ──────────────────────────────────────────
+var rawScores = {
+  speed:    [5, 4, 3, 1],
+  cost:     [5, 3, 2, 2],
+  risk:     [4, 3, 4, 1],
+  control:  [2, 3, 4, 5],
+  postexpo: [5, 4, 3, 3],
+  ip:       [2, 3, 5, 5]
+};
+var criteriaList = [
+  { id: 'speed',    label: 'Speed to Delivery' },
+  { id: 'cost',     label: 'Cost to ERC' },
+  { id: 'risk',     label: 'Risk Level (Lower = Better)' },
+  { id: 'control',  label: 'ERC Control Retention' },
+  { id: 'postexpo', label: 'Post-Expo Viability' },
+  { id: 'ip',       label: 'IP Ownership' }
+];
+var winnerNames = [
+  'PPP Dynamic (Elm-Funded)',
+  'PPP Co-Investment',
+  'Dedicated Budget (PO Model)',
+  'In-House (ERC-Led)'
+];
+var winnerDesc = [
+  'Elm funds Year 1 CapEx and OpEx, recovers investment from platform revenues, then shares profits with ERC. Recommended given the hard 2030 deadline, capacity constraints, and zero upfront capital exposure for ERC in Year 1.',
+  'Both ERC and the delivery partner co-invest. Balanced risk sharing with joint financial skin-in-the-game. Requires strong contractual alignment before initiation.',
+  'Elm or selected vendor executes for a fixed annual budget defined by ERC. Maximum ERC control but highest cost certainty required. Suitable if IP ownership and full control outweigh speed and cost considerations.',
+  'ERC builds and operates the platform entirely in-house. Maximum control and IP ownership. Not recommended given the 2030 hard deadline and current internal capacity constraints.'
+];
+
+function recalcDelivery() {
+  var keys = ['speed', 'cost', 'risk', 'control', 'postexpo', 'ip'];
+  var weights = {};
+  var totalW = 0;
+  for (var k = 0; k < keys.length; k++) {
+    var key = keys[k];
+    weights[key] = +document.getElementById('w_' + key).value / 100;
+    totalW += weights[key];
+    document.getElementById('wv_' + key).textContent = Math.round(weights[key] * 100);
+  }
+
+  var pct = Math.round(totalW * 100);
+  document.getElementById('weight_total').textContent = pct + '%';
+  document.getElementById('weight_total_note').style.color = Math.abs(pct - 100) > 5 ? 'var(--red)' : 'var(--muted)';
+
+  var totals = [0, 0, 0, 0];
+  var rowsHtml = '';
+  for (var i = 0; i < criteriaList.length; i++) {
+    var c  = criteriaList[i];
+    var w  = weights[c.id];
+    var sc = rawScores[c.id];
+    rowsHtml += '<tr><td>' + c.label + '</td><td>' + Math.round(w * 100) + '%</td>';
+    for (var m = 0; m < sc.length; m++) {
+      var s    = sc[m];
+      var barPct = (s / 5) * 100;
+      var fillCls = s >= 4 ? 'green-fill' : s >= 3 ? 'gold-fill' : 'red-fill';
+      totals[m] += s * w * 20;
+      rowsHtml +=
+        '<td>' +
+          '<div class="score-bar-wrap">' +
+            '<div class="score-bar"><div class="score-bar-fill ' + fillCls + '" style="width:' + barPct + '%"></div></div>' +
+            '<span class="score-num">' + s + '/5</span>' +
+          '</div>' +
+        '</td>';
+    }
+    rowsHtml += '</tr>';
+  }
+  document.getElementById('delivery_tbody').innerHTML = rowsHtml;
+
+  var maxScore   = Math.max.apply(null, totals);
+  var winnerIdx  = totals.indexOf(maxScore);
+  document.getElementById('delivery_rec_title').textContent = winnerNames[winnerIdx];
+  document.getElementById('delivery_rec_body').textContent  = winnerDesc[winnerIdx];
+
+  var ids = ['dt_ppp_dynamic', 'dt_ppp_co', 'dt_po', 'dt_inhouse'];
+  for (var t = 0; t < ids.length; t++) {
+    var score = (totals[t] / 100).toFixed(1);
+    document.getElementById(ids[t]).textContent = score + ' / 100';
+  }
+}
+
+// ── BENCHMARKS TAB ─────────────────────────────────────────────────
+var bmData = [
+  { name:"Hayya Platform", sub:"FIFA World Cup Qatar 2022 to permanent", status:"live", origin:"Qatar (Gov)", services:["visa","accreditation","transport","ticketing","identity","event access","cross-border entry"], tech:"Unified national digital ID; NFC passport reading; OCR; AI image verification; e-Gate airport integration; HACS accreditation sub-system; Hayya Move logistics; group visa service", scale:"1M+ users during World Cup; now permanent visa portal for all Qatar visitors; 6 government sub-systems integrated", gulf:5, score:10, tags:["visa","accreditation","procurement","gulf","logistics"] },
+  { name:"Absher (Saudi Arabia)", sub:"Ministry of Interior — 460+ e-gov services", status:"live", origin:"Saudi Arabia (Gov)", services:["visa","identity","residency","licensing","passports","labour","traffic fines"], tech:"REST API with Yaqeen national ID; Nafath biometric SSO; real-time validation; private-sector API access for fintech/healthcare", scale:"25M+ registered users; 28M+ digital IDs issued; 7.7M transactions in July 2024; ranked 6th globally in UN e-Gov Index", gulf:5, score:9.5, tags:["visa","identity","gulf","api"] },
+  { name:"Expo 2020 Dubai App", sub:"Official visitor + business app — Accenture / Etisalat Digital", status:"legacy", origin:"UAE (Gov + Private)", services:["ticketing","dining","smart queue","navigation","B2B/B2G networking","visitor services","digital passport"], tech:"AI-powered B2B matchmaking; GPS interactive map; smart queue reservation API; chatbot; integrated with Etisalat 5G; Accenture-built platform", scale:"182-day event; 24M visitors; two apps (consumer + B2B); 200+ dining integrations", gulf:5, score:9.5, tags:["accreditation","gulf","api","ticketing"] },
+  { name:"Singpass / MyInfo", sub:"Singapore national digital identity ecosystem", status:"live", origin:"Singapore (Gov)", services:["identity","authentication","form pre-fill","financial data","e-signature","document verification","business onboarding"], tech:"APEX API gateway (45+ agencies, 2,000+ APIs); OIDC/OAuth2; biometric face verify; SGFinDex financial data API; Corppass for businesses", scale:"5M users; 41M transactions/month; 2,700+ integrated services; 97% population adoption", gulf:3, score:9.5, tags:["api","identity","visa"] },
+  { name:"Wiz-Team Event-Works", sub:"Official CWG / Olympics games management system", status:"live", origin:"Switzerland (Private)", services:["accreditation","access control","athlete entries","accommodation","transport","workforce","guest management"], tech:"Web-based modular platform; real-time access control scanning; mobile app (EWToGo); TPT Hub transport integration; biometric self-check-in kiosks; GDPR-compliant cloud", scale:"Every Olympics since Athens 2004; Birmingham CWG 2022: 90K+ accreditations, 1M+ entry scans; Special Olympics 2023: 84K rooms allocated", gulf:4, score:9, tags:["accreditation","logistics","procurement","gulf"] },
+  { name:"Paris 2024 S.E.A.T.", sub:"Stakeholder Experience & Access Tool — IOC/Paris 2024", status:"legacy", origin:"France (Gov + IOC)", services:["accreditation","stakeholder services","venue access","visa facilitation","training booking"], tech:"MuleSoft API middleware connecting accreditation DB (Atos) with service booking; Salesforce CRM for 8M fan comms; real-time athlete credential verification", scale:"18M app downloads; 160M website visits; 25.2M emails sent; integrated visa facilitation with France-Visas", gulf:2, score:9, tags:["accreditation","visa","api"] },
+  { name:"Tawakkalna (Saudi Arabia)", sub:"COVID-era to integrated services super-app", status:"live", origin:"Saudi Arabia (Gov / SDAIA)", services:["health","permits","identity verification","payments","event access","vaccination records","government notifications"], tech:"Integrated with Absher, Etimad, Sehhaty, Muqeem; real-time e-notifications; AI-based identity; API links to 6,000+ gov and private services", scale:"Tens of millions of users; mandatory during COVID; evolved into KSA primary citizen super-app", gulf:5, score:9, tags:["visa","identity","gulf","api"] },
+  { name:"Expo 2025 Osaka Visitor App", sub:"Official EXPO 2025 Osaka — Japan Association", status:"live", origin:"Japan (Gov)", services:["ticketing","pavilion reservations","venue map","event info","mobile payments","dining"], tech:"Mobile-first; NFC ticket; time-slot reservation system; multilingual; real-time capacity updates; linked to Chuo subway line transport", scale:"28M visitors; 150 national pavilions; 84% visitor satisfaction; 1,500+ forums and workshops", gulf:2, score:8.5, tags:["ticketing","logistics"] },
+  { name:"Mozuyan Mall (Expo 2025)", sub:"Osaka Prefectural Government procurement platform", status:"live", origin:"Japan (Gov)", services:["procurement","supplier matching","RFQ management","B2B connections","SME onboarding"], tech:"Online matchmaking platform; buyer/supplier registration portal; RFQ and proposal tools; professional call-centre matching; international buyer access", scale:"Osaka-wide SME network; international buyers from 150+ countries; linked to EXPO 2025 supply chain", gulf:3, score:8.5, tags:["procurement","api"] },
+  { name:"Etimad (Saudi Arabia)", sub:"Gov procurement & financial transactions platform", status:"live", origin:"Saudi Arabia (Gov)", services:["government tenders","procurement","financial services","contract management","supplier registration"], tech:"Integrated with Absher, ZATCA (tax), National Address System; e-invoicing; digital audit trail; ministerial linkage", scale:"Used across all Saudi government ministries; handles billions in government procurement; NEOM project contracts routed through it", gulf:5, score:8.5, tags:["procurement","gulf","api"] },
+  { name:"Expo 2020 Business App", sub:"B2B/B2G/G2G networking — Expo 2020 Dubai", status:"legacy", origin:"UAE (Gov + Private)", services:["B2B networking","G2G meetings","business matchmaking","procurement connections","profile management"], tech:"AI-powered profile matching; available web + iOS + Android; filters by sector, expertise, geography; integrated with main Expo 2020 ecosystem", scale:"Millions of business visitors targeted; G2G interactions between 190+ nations; premium paid tier", gulf:5, score:8.5, tags:["procurement","gulf"] },
+  { name:"Tokyo 2020 ICON/OCHA System", sub:"Infection Control & Online Health + Accreditation — TOCOG", status:"legacy", origin:"Japan (Gov + IOC)", services:["accreditation","health monitoring","COVID testing results","daily health reporting","access control"], tech:"Linked health-reporting app + contact tracing (COCOA) + accreditation management; mandatory for all 11,000+ accredited stakeholders; CLO-managed reporting", scale:"11,000+ accredited individuals; 206 NOCs/NPCs; 33 sports; face-recognition at security checkpoints", gulf:2, score:8, tags:["accreditation","identity"] },
+  { name:"VFS Global Expo/Event Platform", sub:"Visa outsourcing + ticketing — used at Expo 2020 Dubai", status:"live", origin:"UAE / Global (Private)", services:["visa applications","e-visa processing","ticket sales","package tours","premium lounge","multi-country deployment"], tech:"Integrated with UAE government visa system since 2003; e-visa API for Emirates Airways (180+ countries); mobile app; 15-country operational network", scale:"Official ticket reseller for Expo 2020; visa services in GCC, India, China, Russia, UK, Germany; 180+ countries served", gulf:5, score:8, tags:["visa","ticketing","gulf"] },
+  { name:"EventsAIR (Birmingham CWG)", sub:"Accommodation management — Birmingham 2022", status:"live", origin:"Australia (Private)", services:["accommodation booking","transport booking","delegate management","web portals","Games Family services"], tech:"Cloud-based event management; secure web portals for booking; integration with CWG accreditation system; transport link management", scale:"CWG Birmingham 2022: 4,500 athletes from 72 nations; 80,000+ accredited individuals; 25+ venues", gulf:3, score:8, tags:["logistics","accreditation"] },
+  { name:"Nafath (Saudi Arabia)", sub:"National biometric SSO — NIC / Digital Gov Authority", status:"live", origin:"Saudi Arabia (Gov)", services:["biometric authentication","SSO across gov platforms","digital identity verification","financial transaction auth"], tech:"Biometric face-verification; links Absher, Etimad, Tawakkalna, Muqeem; QR-based identity; NFC-enabled; integrated with 6,000+ gov and private services", scale:"Covers virtually entire adult Saudi population; mandatory for sensitive gov transactions; 94% of adults have digital wallets", gulf:5, score:8, tags:["identity","visa","gulf","api"] },
+  { name:"FASAH (Saudi Customs)", sub:"Single window customs clearance — ZATCA", status:"live", origin:"Saudi Arabia (Gov)", services:["customs clearance","import/export permits","logistics tracking","regulatory compliance","e-invoicing"], tech:"ZATCA API integration; real-time invoice validation (FATOORAH); cryptographic stamps; UUID tracking; connected to Saudi National Address System", scale:"Mandatory for 80%+ of Saudi businesses; handles all cross-border trade for KSA including mega-project imports", gulf:5, score:8, tags:["logistics","procurement","gulf","api"] },
+  { name:"Paris 2024 Transport App", sub:"Ile-de-France Mobilites — Olympic transport integration", status:"legacy", origin:"France (Gov)", services:["route planning","transport ticketing","real-time traffic info","Olympic venue access","multi-modal journeys"], tech:"Government agency-built; integrated with Paris public transport APIs; real-time data feed; linked to Olympic venue entry system", scale:"Millions of Olympic spectators served; 18M total app downloads across Paris 2024 suite; 14 Olympic venue connections", gulf:2, score:7.5, tags:["logistics","ticketing"] },
+  { name:"imc B-Bright LMS (Birmingham CWG)", sub:"Workforce training platform — 80,000 staff/volunteers", status:"live", origin:"Germany (Private)", services:["workforce training","volunteer management","onboarding","compliance certification"], tech:"Multitenancy LMS; integrated with Rosterfy workforce management; blended learning; designed for reuse across future Games host cities", scale:"80,000+ staff and volunteers trained; system reusable for future Commonwealth Games cities", gulf:3, score:7.5, tags:["procurement","logistics"] },
+  { name:"APEC Business Travel Card (VABTC)", sub:"Virtual multi-economy fast-track business travel", status:"live", origin:"APEC / 19 economies", services:["visa-free entry (21 APEC economies)","fast-track immigration","border pre-clearance","digital ID for business travel"], tech:"Virtual card (mobile app); NFC/digital presentation; pre-clearance database linked to 21 national immigration systems", scale:"All 21 APEC economies participating; 19 accepting virtual card since 2023; covers frequent business travellers across Asia-Pacific", gulf:2, score:7.5, tags:["visa","identity"] },
+  { name:"UNFCCC COP30 Participant Portal", sub:"Accreditation + transport — Brazil 2025", status:"legacy", origin:"Brazil / UN", services:["accreditation","special visa","transport passes","accommodation guidance","24/7 bus pass","badge management"], tech:"UNFCCC badge-linked transport access; dedicated digital transport app; integrated with government of Brazil mobility system; 15 dedicated bus lines", scale:"40,000+ accredited participants; 15 bus lines 24/7 for 21 days; special COP30 visa system integrated", gulf:1, score:7.5, tags:["accreditation","visa","logistics"] },
+  { name:"Riyadh Season / MDLBEAST App", sub:"Saudi entertainment mega-event participant platform", status:"live", origin:"Saudi Arabia (Gov / GEA)", services:["ticketing","artist/vendor accreditation","logistics","accommodation","transport","audience management"], tech:"Wiz-Team Event-Works deployed; TPT Hub vehicle/parking permits; English + Arabic bilingual; integrated with Saudi government identity APIs", scale:"Noor Riyadh: 6,000+ accredited participants; GEA manages 5,000+ events/year across Kingdom", gulf:5, score:7.5, tags:["accreditation","logistics","gulf","ticketing"] },
+  { name:"Special Olympics World Games 2023 AMS", sub:"Accommodation management — Wiz-Team / Berlin", status:"legacy", origin:"Germany (Gov + IOC)", services:["accommodation allocation","arrivals/departures scheduling","delegation management","transport coordination"], tech:"Wiz-Team Event-Works; GDPR-compliant cloud; secure portal for national delegations; real-time room allocation engine", scale:"15,000+ participants; 84,000+ rooms allocated; arrivals/departures managed for 190+ delegations", gulf:1, score:7, tags:["logistics","accreditation"] },
+  { name:"FIFA 2026 World Cup Digital Platform", sub:"US/Canada/Mexico — in development", status:"upcoming", origin:"USA / FIFA (Gov + Private)", services:["fan ID","accreditation","ticketing","transport","venue access","multi-country visa coordination"], tech:"Expected to build on Qatar Hayya model; 3-country coordination required; Wiz-Team likely involved; 48 teams, 16 cities, 3 countries", scale:"Expected 1.5M+ visitors; 48 teams; 16 host cities across 3 countries; most complex World Cup logistics ever staged", gulf:2, score:7, tags:["visa","accreditation","ticketing","logistics"] },
+  { name:"LA 2028 Olympics Digital Ecosystem", sub:"Official Games platform — Alibaba (IOC Partner)", status:"upcoming", origin:"USA / IOC", services:["accreditation","fan engagement","athlete services","broadcast integration","e-commerce"], tech:"Alibaba cloud backbone (IOC TOP Partner); AECOM venue infrastructure; On Location (Wiz-Team) for hospitality; Samsung/Visa digital payments", scale:"300+ athletes from 200+ NOCs; global broadcast; Alibaba Olympic cloud handles broadcasting, data, e-commerce", gulf:2, score:7, tags:["accreditation","logistics"] },
+  { name:"Milan-Cortina 2026 Winter Olympics Platform", sub:"Upcoming — Italy", status:"upcoming", origin:"Italy (Gov + IOC)", services:["accreditation","transport","athlete services","media services","venue access"], tech:"IOC digital framework; Wiz-Team expected for games management; Alibaba cloud; multi-city coordination across 3 venue clusters", scale:"3 main venue clusters; estimated 600K visitors; 91 events across 15 disciplines", gulf:1, score:6.5, tags:["accreditation","logistics"] },
+  { name:"Doha Expo 2030 One-Stop Platform", sub:"Announced — Qatar (in planning)", status:"upcoming", origin:"Qatar (Gov)", services:["visa","accreditation","pavilion procurement","customs","logistics","participant onboarding"], tech:"Planned as evolution of Hayya ecosystem; will integrate HACS accreditation, Hayya Move, and government ministries APIs", scale:"Expected 10M+ visitors; building on Hayya 1M+ user base; 190+ national pavilions anticipated", gulf:5, score:6.5, tags:["visa","accreditation","procurement","logistics","gulf"] },
+  { name:"Expo 2030 Riyadh Platform (MODON/STC)", sub:"Target platform — Saudi Arabia (in planning)", status:"upcoming", origin:"Saudi Arabia (Gov / STC)", services:["visa","accreditation","pavilion procurement","customs","logistics","regulatory compliance","multi-ministry integration"], tech:"STC 5G backbone candidate; integration with Absher, FASAH, Etimad, Nafath, ZATCA; API ecosystem across 30+ government entities", scale:"Target: 40M+ visits over 6 months; 250 participating countries; hard deadline October 2030", gulf:5, score:6.5, tags:["visa","accreditation","procurement","logistics","gulf","api"] },
+  { name:"AFC Asian Cup Qatar 2027 Platform", sub:"Digital services platform — in early development", status:"upcoming", origin:"Qatar (Gov / AFC)", services:["accreditation","fan ID","visa","transport","ticketing"], tech:"Planned as Hayya v3; Wiz-Team (AFC partner) expected for accreditation; builds on Qatar 2022 and Doha 2024 infrastructure", scale:"24 teams; 8+ stadiums; est. 1M+ fans; Qatar targeting 6M tourists by end of 2026", gulf:5, score:6.5, tags:["visa","accreditation","ticketing","gulf"] },
+  { name:"G20 Brazil 2024 Accreditation System", sub:"Rio de Janeiro — credentials + media access", status:"legacy", origin:"Brazil (Gov)", services:["media accreditation","delegate credentials","security clearance","venue access","transport coordination"], tech:"Formal government diplomatic credential system; multi-agency clearance; linked to visa system for non-Brazilian participants", scale:"Leaders from 21 economies + 50+ invited organisations; 20,000+ accredited participants; 3 main summit cities", gulf:1, score:6, tags:["accreditation","visa"] },
+  { name:"Olympic ACMS", sub:"IOC Accreditation & Client Mgmt System — used at every Games", status:"live", origin:"IOC / Switzerland", services:["accreditation","quota management","guest pass","venue access zones","NOC/NPC delegation management"], tech:"IOC proprietary system; integrated with host country visa systems; NOC self-service portal; multi-zone access matrix", scale:"Used at every Olympic and Paralympic Games; Paris 2024: 10,500 athletes, 206 NOCs; Tokyo 2020: 11,000+ accredited stakeholders", gulf:2, score:6, tags:["accreditation","visa","identity"] },
+  { name:"COP29 Azerbaijan Participant Portal", sub:"Baku 2024 — UNFCCC credential + transport", status:"legacy", origin:"Azerbaijan (Gov / UN)", services:["accreditation","transport","accommodation guidance","badge management","zone access"], tech:"UNFCCC standard accreditation system; integrated with Azerbaijan government transport; manual-heavy process", scale:"70,000+ participants registered; Baku Olympic Stadium as main venue; 197 countries represented", gulf:1, score:5.5, tags:["accreditation","logistics"] }
+];
+
+function bmStatusBadge(s) {
+  if (s === 'live')     return '<span class="bm-badge bm-live">Live</span>';
+  if (s === 'upcoming') return '<span class="bm-badge bm-upcoming">Upcoming</span>';
+  return '<span class="bm-badge bm-legacy">Legacy</span>';
+}
+function bmGulfDots(n) {
+  var html = '';
+  for (var i = 0; i < 5; i++) {
+    var col = i < n ? '#1d9e75' : '#d3d1c7';
+    html += '<span class="gulf-dot" style="background:' + col + '"></span>';
+  }
+  return html;
+}
+function bmRenderBar(score) {
+  var pct = (score / 10) * 100;
+  return '<div class="bm-score-bar"><div class="bm-bar"><div class="bm-fill" style="width:' + pct + '%"></div></div><span class="bm-score-num">' + score + '</span></div>';
+}
+function bmRenderServices(arr) {
+  return arr.map(function(s) { return '<span class="bm-tag">' + s + '</span>'; }).join('');
+}
+function bmRenderRows(rows) {
+  return rows.map(function(d, i) {
+    return '<tr>' +
+      '<td class="bm-num">' + (i + 1) + '</td>' +
+      '<td style="min-width:180px"><div class="bm-name">' + d.name + '</div><div class="bm-sub">' + d.sub + '</div></td>' +
+      '<td style="white-space:nowrap">' + bmStatusBadge(d.status) + '</td>' +
+      '<td class="bm-muted" style="white-space:nowrap">' + d.origin + '</td>' +
+      '<td style="min-width:160px">' + bmRenderServices(d.services) + '</td>' +
+      '<td class="bm-muted" style="min-width:180px">' + d.tech + '</td>' +
+      '<td class="bm-muted" style="min-width:160px">' + d.scale + '</td>' +
+      '<td style="white-space:nowrap">' + bmGulfDots(d.gulf) + '</td>' +
+      '<td style="min-width:80px">' + bmRenderBar(d.score) + '</td>' +
+    '</tr>';
+  }).join('');
+}
+function bmFilter(type, btn) {
+  document.querySelectorAll('.bm-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var f;
+  if      (type === 'all')         f = bmData;
+  else if (type === 'live')        f = bmData.filter(function(d) { return d.status === 'live'; });
+  else if (type === 'upcoming')    f = bmData.filter(function(d) { return d.status === 'upcoming'; });
+  else if (type === 'gulf')        f = bmData.filter(function(d) { return d.gulf >= 4; });
+  else if (type === 'visa')        f = bmData.filter(function(d) { return d.tags.indexOf('visa') >= 0; });
+  else if (type === 'procurement') f = bmData.filter(function(d) { return d.tags.indexOf('procurement') >= 0; });
+  else f = bmData;
+  document.getElementById('bm-tbody').innerHTML = bmRenderRows(f);
+}
+
+// ── INIT ───────────────────────────────────────────────────────────
+recalcAll();
+recalcDelivery();
+
+document.getElementById('bm-live-count').textContent  = bmData.filter(function(d) { return d.status === 'live'; }).length;
+document.getElementById('bm-up-count').textContent    = bmData.filter(function(d) { return d.status === 'upcoming'; }).length;
+document.getElementById('bm-gulf-count').textContent  = bmData.filter(function(d) { return d.gulf >= 4; }).length;
+document.getElementById('bm-tbody').innerHTML = bmRenderRows(bmData);
+</script>
+</body>
+</html>
