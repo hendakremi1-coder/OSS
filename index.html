@@ -225,126 +225,134 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
     <div>
       <div style="display:flex;align-items:center;gap:10px;">
         <div class="section-title">Financial Model &amp; Investment Case</div>
-        <div class="section-tag">CRITICAL GAP</div>
+        <div class="section-tag">CRITICAL GAP — CORRECTED</div>
       </div>
-      <div class="section-desc">Adjust the variables below. All projections, scenario outputs, and revenue figures recalculate instantly. Lock these inputs only after the delivery model decision and fee rate negotiation are complete.</div>
+      <div class="section-desc">Revenue comes entirely from the supply side: suppliers and contractors pay to register and access the platform, and to purchase bundled permit packages. There are no fees charged to participants or pavilion operators. Adjust the variables below to recalculate everything.</div>
     </div>
   </div>
 
+  <div class="flag-box" style="border-left-color:var(--green);background:var(--green-light);color:#1A3D28;">
+    <strong>Model basis:</strong> Elm proposal (supplier subscription fees + transaction volume-based fees + permit packages, all charged to suppliers/contractors). The revenue tier thresholds and exact % splits between Elm and ERC are still TBD pending negotiation — shown as adjustable inputs below. No participant-side fees exist in this model.
+  </div>
+
   <div class="controls-panel">
-    <h3>Variable Inputs — Edit to Recalculate Everything</h3>
+    <h3>Variable Inputs — All Supplier-Side Revenue Only</h3>
     <div class="controls-grid">
+
       <div class="ctrl">
-        <label>Total Pavilions</label>
-        <input type="range" id="r_pavilions" min="150" max="280" step="5" value="220" oninput="recalcAll()"/>
-        <div class="val-display"><span id="v_pavilions">220</span></div>
+        <label>Registered Suppliers on Platform</label>
+        <input type="range" id="r_suppliers" min="2000" max="30000" step="500" value="10000" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_suppliers">10,000</span></div>
       </div>
+
       <div class="ctrl">
-        <label>Platform Adoption Rate (%)</label>
-        <input type="range" id="r_adoption" min="30" max="95" step="5" value="65" oninput="recalcAll()"/>
-        <div class="val-display"><span id="v_adoption">65</span>%</div>
+        <label>Avg Annual Supplier Subscription Fee (SAR)</label>
+        <input type="range" id="r_subfee" min="500" max="5000" step="250" value="2000" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_subfee">2,000</span></div>
       </div>
+
       <div class="ctrl">
-        <label>Avg Transaction Vol / Pavilion (SAR M)</label>
-        <input type="range" id="r_txvol" min="2" max="15" step="0.5" value="6" oninput="recalcAll()"/>
-        <div class="val-display">SAR <span id="v_txvol">6</span>M</div>
+        <label>Permit Packages Sold (Total over Expo period)</label>
+        <input type="range" id="r_permits" min="500" max="10000" step="250" value="3000" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_permits">3,000</span></div>
       </div>
+
       <div class="ctrl">
-        <label>Transaction Fee Rate (%)</label>
-        <input type="range" id="r_fee" min="0.25" max="3" step="0.25" value="1" oninput="recalcAll()"/>
-        <div class="val-display"><span id="v_fee">1.00</span>%</div>
+        <label>Avg Permit Package Value (SAR)</label>
+        <input type="range" id="r_permitval" min="1000" max="20000" step="500" value="5000" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_permitval">5,000</span></div>
       </div>
+
       <div class="ctrl">
-        <label>Registered Suppliers (by Expo open)</label>
-        <input type="range" id="r_suppliers" min="3000" max="30000" step="500" value="12000" oninput="recalcAll()"/>
-        <div class="val-display"><span id="v_suppliers">12,000</span></div>
-      </div>
-      <div class="ctrl">
-        <label>Avg Supplier Sub Fee (SAR / yr)</label>
-        <input type="range" id="r_subfee" min="300" max="4000" step="100" value="1500" oninput="recalcAll()"/>
-        <div class="val-display">SAR <span id="v_subfee">1,500</span></div>
-      </div>
-      <div class="ctrl">
-        <label>CapEx (SAR M)</label>
+        <label>Platform CapEx — borne by delivery partner (SAR M)</label>
         <input type="range" id="r_capex" min="20" max="150" step="5" value="60" oninput="recalcAll()"/>
         <div class="val-display">SAR <span id="v_capex">60</span>M</div>
       </div>
+
       <div class="ctrl">
-        <label>Annual OpEx (SAR M)</label>
-        <input type="range" id="r_opex" min="5" max="40" step="1" value="12" oninput="recalcAll()"/>
-        <div class="val-display">SAR <span id="v_opex">12</span>M</div>
+        <label>Annual Platform OpEx — borne by delivery partner (SAR M)</label>
+        <input type="range" id="r_opex" min="5" max="40" step="1" value="10" oninput="recalcAll()"/>
+        <div class="val-display">SAR <span id="v_opex">10</span>M</div>
       </div>
+
       <div class="ctrl">
-        <label>ERC Revenue Share — PPP Dynamic (%)</label>
-        <input type="range" id="r_ercshare" min="15" max="60" step="5" value="35" oninput="recalcAll()"/>
-        <div class="val-display"><span id="v_ercshare">35</span>%</div>
+        <label>ERC Revenue Share % (post-partner recovery)</label>
+        <input type="range" id="r_ercshare" min="10" max="60" step="5" value="30" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_ercshare">30</span>% <span style="font-size:11px;color:var(--muted);">TBD</span></div>
       </div>
+
+      <div class="ctrl">
+        <label>Partner CapEx Recovery Period (years)</label>
+        <input type="range" id="r_recovery" min="1" max="4" step="1" value="2" oninput="recalcAll()"/>
+        <div class="val-display"><span id="v_recovery">2</span> yrs</div>
+      </div>
+
     </div>
   </div>
 
   <div class="metric-grid">
     <div class="metric-card">
-      <div class="metric-label">Active Pavilions on Platform</div>
-      <div class="metric-value" id="m_active_pav">143</div>
-      <div class="metric-sub">of <span id="m_total_pav">220</span> total</div>
+      <div class="metric-label">Registered Suppliers</div>
+      <div class="metric-value" id="m_suppliers">10,000</div>
+      <div class="metric-sub">paying subscription fees</div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">Total Transaction Volume (SAR M)</div>
-      <div class="metric-value" id="m_txvol_total">858</div>
-      <div class="metric-sub">Active pavilions x avg vol</div>
+      <div class="metric-label">Annual Subscription Revenue (SAR M)</div>
+      <div class="metric-value" id="m_sub_rev">20</div>
+      <div class="metric-sub">suppliers x avg fee</div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">5-Year Total Revenue (SAR M)</div>
+      <div class="metric-label">Permit Package Revenue (SAR M)</div>
+      <div class="metric-value" id="m_permit_rev">15</div>
+      <div class="metric-sub">over Expo period</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">5-Year Total Platform Revenue (SAR M)</div>
       <div class="metric-value" id="m_5yr_rev">—</div>
-      <div class="metric-sub">Base case</div>
+      <div class="metric-sub">supplier-side only</div>
     </div>
     <div class="metric-card red">
-      <div class="metric-label">5-Year Total Cost (SAR M)</div>
+      <div class="metric-label">Partner Total Cost (CapEx + OpEx, SAR M)</div>
       <div class="metric-value red" id="m_5yr_cost">—</div>
-      <div class="metric-sub">CapEx + OpEx</div>
+      <div class="metric-sub">borne by delivery partner</div>
     </div>
     <div class="metric-card gold">
-      <div class="metric-label">Net 5-Year Position (SAR M)</div>
-      <div class="metric-value gold-v" id="m_net">—</div>
-      <div class="metric-sub" id="m_breakeven">Breakeven: —</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">ERC Revenue Share (SAR M)</div>
-      <div class="metric-value" id="m_erc_share">—</div>
-      <div class="metric-sub">PPP Dynamic model</div>
+      <div class="metric-label">ERC Net Revenue Share (SAR M)</div>
+      <div class="metric-value gold-v" id="m_erc_share">—</div>
+      <div class="metric-sub" id="m_recovery_note">after partner recovers CapEx</div>
     </div>
   </div>
 
   <div class="bar-chart-wrap">
-    <div class="bar-chart-title">Revenue vs. Cost by Year (SAR Millions)</div>
+    <div class="bar-chart-title">Platform Revenue vs. Partner Cost by Year (SAR Millions)</div>
     <div class="bar-chart" id="bar_chart"></div>
     <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
-        <div style="width:12px;height:12px;border-radius:2px;background:var(--green);"></div> Revenue
+        <div style="width:12px;height:12px;border-radius:2px;background:var(--green);"></div> Total Platform Revenue
       </div>
       <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
-        <div style="width:12px;height:12px;border-radius:2px;background:var(--red);"></div> Cost (CapEx + OpEx)
+        <div style="width:12px;height:12px;border-radius:2px;background:var(--red);"></div> Partner Cost (CapEx + OpEx)
       </div>
     </div>
   </div>
 
-  <div class="sub-header">5-Year Financial Projection</div>
+  <div class="sub-header">5-Year Revenue Projection (Supplier-Side Only)</div>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th>Item (SAR M)</th>
-          <th>2027</th>
-          <th>2028-29</th>
-          <th>2030 (Expo)</th>
-          <th>2031</th>
+          <th>Revenue Stream (SAR M)</th>
+          <th>2027<br><span style="font-weight:400;font-size:10px;">Build + onboarding</span></th>
+          <th>2028-29<br><span style="font-weight:400;font-size:10px;">Ramp</span></th>
+          <th>2030<br><span style="font-weight:400;font-size:10px;">Expo live</span></th>
+          <th>2031<br><span style="font-weight:400;font-size:10px;">Post-Expo</span></th>
           <th>5-Yr Total</th>
         </tr>
       </thead>
       <tbody id="proj_tbody"></tbody>
     </table>
   </div>
-  <p class="note-text">Under the PPP Dynamic model, ERC's direct 2027 cash exposure reduces to OpEx only. CapEx is recovered by the delivery partner from platform revenues before the revenue-sharing split activates.</p>
+  <p class="note-text">Under the PPP Dynamic model, ERC pays zero CapEx or OpEx. The delivery partner recovers its investment from platform revenues first. ERC's revenue share activates only after the partner's recovery threshold is crossed. The recovery period slider above controls when ERC's share begins.</p>
 
   <div class="section-spacer"></div>
   <div class="sub-header">Scenario Comparison</div>
@@ -353,9 +361,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
       <thead>
         <tr>
           <th>Metric</th>
-          <th>Downside (45% adoption, 0.5% fee)</th>
-          <th>Base Case (current sliders)</th>
-          <th>Upside (85% adoption, 1.75% fee)</th>
+          <th>Low (5,000 suppliers, SAR 1,000 sub fee)</th>
+          <th>Base Case (current inputs)</th>
+          <th>High (20,000 suppliers, SAR 3,500 sub fee)</th>
         </tr>
       </thead>
       <tbody id="scenario_tbody"></tbody>
@@ -365,22 +373,22 @@ body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--
   <div class="sub-header">Key Assumptions &amp; Confidence</div>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Assumption</th><th>Value Used</th><th>Confidence</th></tr></thead>
+      <thead><tr><th>Assumption</th><th>Value Used</th><th>Source</th><th>Confidence</th></tr></thead>
       <tbody>
-        <tr><td>Total pavilion count</td><td id="a_pav">220</td><td><span class="badge green">HIGH — confirmed by ERC dossier</span></td></tr>
-        <tr><td>Transaction fee rate</td><td id="a_fee">1.00%</td><td><span class="badge red">LOW — TBD in negotiation</span></td></tr>
-        <tr><td>ERC revenue share under PPP</td><td id="a_ercshare">35%</td><td><span class="badge red">LOW — TBD in negotiation</span></td></tr>
-        <tr><td>Platform CapEx</td><td id="a_capex">SAR 60M</td><td><span class="badge amber">MEDIUM — ballpark pending tech partner selection</span></td></tr>
-        <tr><td>Supplier subscription fee</td><td id="a_subfee">SAR 1,500/yr</td><td><span class="badge amber">MEDIUM</span></td></tr>
-        <tr><td>Post-Expo B2B legacy revenue included</td><td>Yes (SAR 15M in 2031)</td><td><span class="badge red">LOW — depends on post-Expo strategy decision</span></td></tr>
-        <tr><td>Government API integration cost</td><td>Included in CapEx (~SAR 12M)</td><td><span class="badge red">LOW — pending ministry readiness assessment</span></td></tr>
+        <tr><td>Revenue charged to participants / pavilions</td><td>None</td><td>Elm proposal — confirmed</td><td><span class="badge green">CONFIRMED</span></td></tr>
+        <tr><td>Revenue source</td><td>Suppliers and contractors only</td><td>Elm proposal p.17</td><td><span class="badge green">CONFIRMED</span></td></tr>
+        <tr><td>Revenue streams</td><td>Supplier subscriptions + permit packages</td><td>Elm proposal p.17</td><td><span class="badge green">CONFIRMED</span></td></tr>
+        <tr><td>Who bears CapEx and OpEx</td><td>Delivery partner (Elm under PPP Dynamic)</td><td>Elm proposal p.20</td><td><span class="badge green">CONFIRMED (under PPP Dynamic)</span></td></tr>
+        <tr><td>Subscription fee amount (SAR)</td><td id="a_subfee">SAR 2,000/yr</td><td>Not in any document</td><td><span class="badge red">NOT DEFINED — TBD in negotiation</span></td></tr>
+        <tr><td>Permit package price (SAR)</td><td id="a_permitval">SAR 5,000</td><td>Not in any document</td><td><span class="badge red">NOT DEFINED — TBD in negotiation</span></td></tr>
+        <tr><td>ERC revenue share % (post-recovery)</td><td id="a_ercshare">30%</td><td>Elm tiers use X/Y/Z placeholders</td><td><span class="badge red">NOT DEFINED — TBD in negotiation</span></td></tr>
+        <tr><td>Partner CapEx recovery period</td><td id="a_recovery">2 years</td><td>Not specified in Elm proposal</td><td><span class="badge amber">ESTIMATED — TBD in negotiation</span></td></tr>
+        <tr><td>Number of suppliers who will register</td><td id="a_suppliers">10,000</td><td>Dubai reached 25,000 (AED 1B+ transacted)</td><td><span class="badge amber">MEDIUM — benchmarked but not committed</span></td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- ══════════════════════════ GAP 2 ══════════════════════════ -->
-<section id="gap2" class="tab-panel">
   <div class="section-header">
     <div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -709,232 +717,196 @@ function fmtSigned(n) {
 }
 function neg(n) { return '(' + r(n) + ')'; }
 
-// ── GAP 1: FINANCIAL MODEL ─────────────────────────────────────────
+// ── GAP 1: FINANCIAL MODEL — CORRECTED (supplier-side revenue only) ──
 function recalcAll() {
-  var pavilions = +document.getElementById('r_pavilions').value;
-  var adoption  = +document.getElementById('r_adoption').value / 100;
-  var txvol     = +document.getElementById('r_txvol').value;
-  var fee       = +document.getElementById('r_fee').value / 100;
-  var suppliers = +document.getElementById('r_suppliers').value;
-  var subfeeAmt = +document.getElementById('r_subfee').value;
-  var capex     = +document.getElementById('r_capex').value;
-  var opex      = +document.getElementById('r_opex').value;
-  var ercshare  = +document.getElementById('r_ercshare').value / 100;
+  var suppliers  = +document.getElementById('r_suppliers').value;
+  var subfeeAmt  = +document.getElementById('r_subfee').value;
+  var permits    = +document.getElementById('r_permits').value;
+  var permitval  = +document.getElementById('r_permitval').value;
+  var capex      = +document.getElementById('r_capex').value;
+  var opex       = +document.getElementById('r_opex').value;
+  var ercshare   = +document.getElementById('r_ercshare').value / 100;
+  var recovery   = +document.getElementById('r_recovery').value;
 
-  // Update slider display values
-  document.getElementById('v_pavilions').textContent = pavilions;
-  document.getElementById('v_adoption').textContent  = Math.round(adoption * 100);
-  document.getElementById('v_txvol').textContent     = txvol;
-  document.getElementById('v_fee').textContent       = (fee * 100).toFixed(2);
+  // Update display values
   document.getElementById('v_suppliers').textContent = suppliers.toLocaleString();
   document.getElementById('v_subfee').textContent    = subfeeAmt.toLocaleString();
+  document.getElementById('v_permits').textContent   = permits.toLocaleString();
+  document.getElementById('v_permitval').textContent = permitval.toLocaleString();
   document.getElementById('v_capex').textContent     = capex;
   document.getElementById('v_opex').textContent      = opex;
   document.getElementById('v_ercshare').textContent  = Math.round(ercshare * 100);
+  document.getElementById('v_recovery').textContent  = recovery;
 
   // Update assumptions table
-  document.getElementById('a_pav').textContent     = pavilions;
-  document.getElementById('a_fee').textContent     = (fee * 100).toFixed(2) + '%';
-  document.getElementById('a_capex').textContent   = 'SAR ' + capex + 'M';
-  document.getElementById('a_subfee').textContent  = 'SAR ' + subfeeAmt.toLocaleString() + '/yr';
-  document.getElementById('a_ercshare').textContent = Math.round(ercshare * 100) + '%';
+  document.getElementById('a_subfee').textContent   = 'SAR ' + subfeeAmt.toLocaleString() + '/yr';
+  document.getElementById('a_permitval').textContent = 'SAR ' + permitval.toLocaleString();
+  document.getElementById('a_ercshare').textContent  = Math.round(ercshare * 100) + '%';
+  document.getElementById('a_recovery').textContent  = recovery + ' years';
+  document.getElementById('a_suppliers').textContent = suppliers.toLocaleString();
 
-  var activePav   = Math.round(pavilions * adoption);
-  var totalTxVol  = activePav * txvol;
+  // ── Revenue calculation (SAR M) ──
+  // Subscription revenue: suppliers x annual fee, ramps up over time
+  var annualSubRev = (suppliers * subfeeAmt) / 1e6;  // SAR M per year at full run rate
 
-  // Year-by-year revenue (SAR M)
-  var txRev2027 = 0;
-  var txRev2829 = totalTxVol * fee * 0.25;
-  var txRev2030 = totalTxVol * fee;
-  var txRev2031 = totalTxVol * fee * 0.15;
+  var subRev2027 = annualSubRev * 0.20;   // 20% of suppliers onboarded in build year
+  var subRev2829 = annualSubRev * 0.70;   // 70% ramp (covers 2 years, shown as one period)
+  var subRev2030 = annualSubRev * 1.00;   // Full run rate during Expo year
+  var subRev2031 = annualSubRev * 0.60;   // Post-Expo decay as Expo-only suppliers drop off
 
-  var subRevPerYear = (suppliers * subfeeAmt) / 1e6;
-  var subRev2027 = subRevPerYear * 0.15;
-  var subRev2829 = subRevPerYear * 0.6;
-  var subRev2030 = subRevPerYear;
-  var subRev2031 = subRevPerYear * 0.7;
+  // Permit package revenue: one-time purchases by suppliers/contractors, concentrated pre-Expo and during Expo
+  var totalPermitRev = (permits * permitval) / 1e6;  // SAR M total
 
-  var vasRev2027 = 0;
-  var vasRev2829 = activePav * 0.15 * 0.3;
-  var vasRev2030 = activePav * 0.3 * 0.4;
-  var vasRev2031 = 15;
+  var permitRev2027 = totalPermitRev * 0.10;   // Early movers
+  var permitRev2829 = totalPermitRev * 0.45;   // Pre-Expo construction and setup phase
+  var permitRev2030 = totalPermitRev * 0.40;   // Expo operations
+  var permitRev2031 = totalPermitRev * 0.05;   // Tail
 
-  var rev2027 = txRev2027 + subRev2027 + vasRev2027;
-  var rev2829 = txRev2829 + subRev2829 + vasRev2829;
-  var rev2030 = txRev2030 + subRev2030 + vasRev2030;
-  var rev2031 = txRev2031 + subRev2031 + vasRev2031;
+  // Total revenue per period
+  var rev2027 = subRev2027 + permitRev2027;
+  var rev2829 = subRev2829 + permitRev2829;
+  var rev2030 = subRev2030 + permitRev2030;
+  var rev2031 = subRev2031 + permitRev2031;
   var revTotal = rev2027 + rev2829 + rev2030 + rev2031;
 
-  var cost2027 = capex * 0.65 + opex;
-  var cost2829 = capex * 0.35 + opex * 1.5;
-  var cost2030 = opex * 1.5;
-  var cost2031 = opex * 0.8;
+  // ── Partner cost (borne by delivery partner, not ERC) ──
+  var cost2027 = capex * 0.60 + opex;          // Majority of CapEx in Year 1
+  var cost2829 = capex * 0.40 + opex * 1.5;   // Remaining CapEx + higher OpEx as platform scales
+  var cost2030 = opex * 1.5;                   // Full operational OpEx
+  var cost2031 = opex * 0.80;                  // Reduced post-Expo OpEx
   var costTotal = cost2027 + cost2829 + cost2030 + cost2031;
 
-  var netTotal     = revTotal - costTotal;
-  var ercShareTotal = revTotal * ercshare;
+  // ── ERC revenue share (activates after partner recovers CapEx) ──
+  // Recovery period slider controls when ERC share kicks in
+  // Before recovery: partner keeps 100% of revenue to recoup CapEx
+  // After recovery: revenue split by ercshare %
+  var preRecoveryRev = 0;
+  var postRecoveryRev = 0;
 
-  // Breakeven
-  var cum = -cost2027;
-  var beven = 'Post-2031';
-  cum += rev2027;
-  if (cum >= 0) { beven = '2027'; }
-  else {
-    cum += rev2829 - cost2829;
-    if (cum >= 0) { beven = '2028-2029'; }
-    else {
-      cum += rev2030 - cost2030;
-      if (cum >= 0) { beven = '2030 (Expo Year)'; }
-      else {
-        cum += rev2031 - cost2031;
-        if (cum >= 0) { beven = '2031'; }
-      }
-    }
+  if (recovery >= 1) preRecoveryRev += rev2027;
+  else postRecoveryRev += rev2027;
+
+  if (recovery >= 2) preRecoveryRev += rev2829;
+  else postRecoveryRev += rev2829;
+
+  if (recovery >= 3) preRecoveryRev += rev2030;
+  else postRecoveryRev += rev2030;
+
+  if (recovery >= 4) preRecoveryRev += rev2031;
+  else postRecoveryRev += rev2031;
+
+  // ERC receives its share only on post-recovery revenue
+  var ercShareTotal = postRecoveryRev * ercshare;
+  var ercShareNote  = 'ERC share activates from Year ' + (recovery + 1);
+
+  // ── KPI cards ──
+  document.getElementById('m_suppliers').textContent   = suppliers.toLocaleString();
+  document.getElementById('m_sub_rev').textContent     = r(annualSubRev, 1);
+  document.getElementById('m_permit_rev').textContent  = r(totalPermitRev, 1);
+  document.getElementById('m_5yr_rev').textContent     = r(revTotal, 1);
+  document.getElementById('m_5yr_cost').textContent    = r(costTotal, 1);
+  document.getElementById('m_erc_share').textContent   = r(ercShareTotal, 1);
+  document.getElementById('m_recovery_note').textContent = ercShareNote;
+
+  // ── Projection table ──
+  // ERC share per period (simplified: share activates after recovery period)
+  function ercInPeriod(periodNum) {
+    return periodNum > recovery ? true : false;
   }
-
-  // KPI cards
-  document.getElementById('m_active_pav').textContent  = activePav;
-  document.getElementById('m_total_pav').textContent   = pavilions;
-  document.getElementById('m_txvol_total').textContent = r(totalTxVol, 0);
-  document.getElementById('m_5yr_rev').textContent     = r(revTotal, 0);
-  document.getElementById('m_5yr_cost').textContent    = r(costTotal, 0);
-  document.getElementById('m_net').textContent         = fmtSigned(netTotal);
-  document.getElementById('m_net').className = 'metric-value ' + (netTotal >= 0 ? 'gold-v' : 'red');
-  document.getElementById('m_breakeven').textContent   = 'Breakeven: ' + beven;
-  document.getElementById('m_erc_share').textContent   = r(ercShareTotal, 0);
-
-  // Projection table
-  var cum2027 = rev2027 - cost2027;
-  var cum2829 = cum2027 + rev2829 - cost2829;
-  var cum2030 = cum2829 + rev2030 - cost2030;
+  var e2027 = ercInPeriod(1) ? rev2027 * ercshare : 0;
+  var e2829 = ercInPeriod(2) ? rev2829 * ercshare : 0;
+  var e2030 = ercInPeriod(3) ? rev2030 * ercshare : 0;
+  var e2031 = ercInPeriod(4) ? rev2031 * ercshare : 0;
 
   document.getElementById('proj_tbody').innerHTML =
-    '<tr style="background:var(--red-light)">' +
-      '<td>Platform Development (CapEx)</td>' +
-      '<td style="color:var(--red)">' + neg(capex * 0.65) + '</td>' +
-      '<td style="color:var(--red)">' + neg(capex * 0.35) + '</td>' +
-      '<td>—</td><td>—</td>' +
-      '<td style="color:var(--red);font-weight:600">' + neg(capex) + '</td>' +
-    '</tr>' +
-    '<tr style="background:var(--red-light)">' +
-      '<td>Annual OpEx (Platform + Staff + Integrations)</td>' +
-      '<td style="color:var(--red)">' + neg(opex) + '</td>' +
-      '<td style="color:var(--red)">' + neg(opex * 1.5) + '</td>' +
-      '<td style="color:var(--red)">' + neg(opex * 1.5) + '</td>' +
-      '<td style="color:var(--red)">' + neg(opex * 0.8) + '</td>' +
-      '<td style="color:var(--red);font-weight:600">' + neg(opex * 4.8) + '</td>' +
-    '</tr>' +
     '<tr style="background:var(--green-light)">' +
-      '<td>Transaction Fee Revenue</td>' +
-      '<td>—</td>' +
-      '<td>' + r(txRev2829) + '</td>' +
-      '<td>' + r(txRev2030) + '</td>' +
-      '<td>' + r(txRev2031) + '</td>' +
-      '<td style="font-weight:600">' + r(txRev2829 + txRev2030 + txRev2031) + '</td>' +
-    '</tr>' +
-    '<tr style="background:var(--green-light)">' +
-      '<td>Supplier Subscription Revenue</td>' +
+      '<td><strong>Supplier Subscription Fees</strong></td>' +
       '<td>' + r(subRev2027) + '</td>' +
       '<td>' + r(subRev2829) + '</td>' +
       '<td>' + r(subRev2030) + '</td>' +
       '<td>' + r(subRev2031) + '</td>' +
-      '<td style="font-weight:600">' + r(subRev2027 + subRev2829 + subRev2030 + subRev2031) + '</td>' +
+      '<td style="font-weight:600">' + r(subRev2027+subRev2829+subRev2030+subRev2031) + '</td>' +
     '</tr>' +
     '<tr style="background:var(--green-light)">' +
-      '<td>Permit Packages &amp; Value-Added Services</td>' +
-      '<td>—</td>' +
-      '<td>' + r(vasRev2829) + '</td>' +
-      '<td>' + r(vasRev2030) + '</td>' +
-      '<td>' + r(vasRev2031) + '</td>' +
-      '<td style="font-weight:600">' + r(vasRev2829 + vasRev2030 + vasRev2031) + '</td>' +
+      '<td><strong>Permit Package Revenue</strong></td>' +
+      '<td>' + r(permitRev2027) + '</td>' +
+      '<td>' + r(permitRev2829) + '</td>' +
+      '<td>' + r(permitRev2030) + '</td>' +
+      '<td>' + r(permitRev2031) + '</td>' +
+      '<td style="font-weight:600">' + r(totalPermitRev) + '</td>' +
     '</tr>' +
     '<tr class="total-row">' +
-      '<td>TOTAL REVENUE</td>' +
+      '<td>TOTAL PLATFORM REVENUE</td>' +
       '<td>' + r(rev2027) + '</td><td>' + r(rev2829) + '</td><td>' + r(rev2030) + '</td><td>' + r(rev2031) + '</td>' +
       '<td>' + r(revTotal) + '</td>' +
     '</tr>' +
-    '<tr class="total-row" style="background:var(--green-dark)">' +
-      '<td>TOTAL COST (CapEx + OpEx)</td>' +
-      '<td>' + neg(cost2027) + '</td><td>' + neg(cost2829) + '</td><td>' + neg(cost2030) + '</td><td>' + neg(cost2031) + '</td>' +
-      '<td>' + neg(costTotal) + '</td>' +
+    '<tr style="background:var(--red-light)">' +
+      '<td>Partner Cost (CapEx + OpEx) — not ERC</td>' +
+      '<td style="color:var(--red)">' + neg(cost2027) + '</td>' +
+      '<td style="color:var(--red)">' + neg(cost2829) + '</td>' +
+      '<td style="color:var(--red)">' + neg(cost2030) + '</td>' +
+      '<td style="color:var(--red)">' + neg(cost2031) + '</td>' +
+      '<td style="color:var(--red);font-weight:600">' + neg(costTotal) + '</td>' +
     '</tr>' +
-    '<tr class="gold-row">' +
-      '<td>NET POSITION (Cumulative)</td>' +
-      '<td>' + fmtSigned(cum2027) + '</td>' +
-      '<td>' + fmtSigned(cum2829) + '</td>' +
-      '<td>' + fmtSigned(cum2030) + '</td>' +
-      '<td>' + fmtSigned(netTotal) + '</td>' +
-      '<td>' + fmtSigned(netTotal) + '</td>' +
+    '<tr style="background:var(--amber-light)">' +
+      '<td>ERC Revenue Share (activates post-recovery)</td>' +
+      '<td style="color:var(--amber)">' + (e2027 > 0 ? r(e2027) : 'In recovery') + '</td>' +
+      '<td style="color:var(--amber)">' + (e2829 > 0 ? r(e2829) : 'In recovery') + '</td>' +
+      '<td style="color:var(--green);font-weight:600">' + (e2030 > 0 ? r(e2030) : 'In recovery') + '</td>' +
+      '<td style="color:var(--green);font-weight:600">' + (e2031 > 0 ? r(e2031) : 'In recovery') + '</td>' +
+      '<td style="font-weight:600">' + r(ercShareTotal) + '</td>' +
     '</tr>';
 
-  // Scenario comparison
-  function calcScenario(adoptPct, feePct, supplierMult) {
-    var ap   = Math.round(pavilions * adoptPct);
-    var tv   = ap * txvol;
-    var f    = feePct / 100;
-    var txR  = tv * f + tv * f * 0.25 + tv * f * 0.15;
-    var sR   = suppliers * supplierMult * subfeeAmt / 1e6 * 2.45;
-    var vR   = ap * 0.2 * 0.3 + ap * 0.12 * 0.3 + 10;
-    var totR = txR + sR + vR;
-    var net5 = totR - costTotal;
-    var erc  = totR * ercshare;
-    var bv   = 'Post-2031';
-    if (net5 > 0) bv = '2030 or earlier';
-    return { totR: totR, net5: net5, erc: erc, bv: bv };
+  // ── Scenario comparison ──
+  function calcScenario(suppCount, suppFee, permitCount, permitPrice) {
+    var aSub     = (suppCount * suppFee) / 1e6;
+    var aPerm    = (permitCount * permitPrice) / 1e6;
+    var totSub   = aSub * (0.20 + 0.70 + 1.00 + 0.60);
+    var totRev   = totSub + aPerm;
+    var postRec  = 0;
+    if (recovery < 2) postRec += aSub * 0.70 + aPerm * 0.45;
+    if (recovery < 3) postRec += aSub * 1.00 + aPerm * 0.40;
+    if (recovery < 4) postRec += aSub * 0.60 + aPerm * 0.05;
+    var erc = postRec * ercshare;
+    return { totRev: totRev, erc: erc };
   }
 
-  var ds = calcScenario(0.45, 0.5,  0.5);
-  var bs = { totR: revTotal, net5: netTotal, erc: ercShareTotal, bv: beven };
-  var us = calcScenario(0.85, 1.75, 1.5);
+  var low  = calcScenario(5000,  1000, 1000, 3000);
+  var base = calcScenario(suppliers, subfeeAmt, permits, permitval);
+  var high = calcScenario(20000, 3500, 6000, 8000);
 
   document.getElementById('scenario_tbody').innerHTML =
     '<tr>' +
-      '<td>Adoption Rate</td>' +
-      '<td>45%</td>' +
-      '<td>' + Math.round(adoption * 100) + '% (current)</td>' +
-      '<td>85%</td>' +
+      '<td>Registered Suppliers</td>' +
+      '<td>5,000</td><td>' + suppliers.toLocaleString() + ' (current)</td><td>20,000</td>' +
     '</tr>' +
     '<tr>' +
-      '<td>Transaction Fee</td>' +
-      '<td>0.5%</td>' +
-      '<td>' + (fee * 100).toFixed(2) + '% (current)</td>' +
-      '<td>1.75%</td>' +
+      '<td>Avg Annual Subscription Fee (SAR)</td>' +
+      '<td>1,000</td><td>' + subfeeAmt.toLocaleString() + ' (current)</td><td>3,500</td>' +
     '</tr>' +
     '<tr>' +
-      '<td>5-Year Total Revenue (SAR M)</td>' +
-      '<td style="background:var(--red-light)">' + r(ds.totR, 0) + '</td>' +
-      '<td style="background:var(--amber-light);font-weight:600">' + r(bs.totR, 0) + '</td>' +
-      '<td style="background:var(--green-light)">' + r(us.totR, 0) + '</td>' +
+      '<td>5-Year Total Platform Revenue (SAR M)</td>' +
+      '<td style="background:var(--red-light)">' + r(low.totRev) + '</td>' +
+      '<td style="background:var(--amber-light);font-weight:600">' + r(base.totRev) + '</td>' +
+      '<td style="background:var(--green-light)">' + r(high.totRev) + '</td>' +
     '</tr>' +
     '<tr>' +
-      '<td>5-Year Net Position (SAR M)</td>' +
-      '<td style="background:var(--red-light);color:' + (ds.net5 >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + fmtSigned(ds.net5) + '</td>' +
-      '<td style="background:var(--amber-light);font-weight:600;color:' + (bs.net5 >= 0 ? 'var(--green)' : 'var(--red)') + '">' + fmtSigned(bs.net5) + '</td>' +
-      '<td style="background:var(--green-light);color:var(--green);font-weight:600">' + fmtSigned(us.net5) + '</td>' +
-    '</tr>' +
-    '<tr>' +
-      '<td>ERC Revenue Share (SAR M)</td>' +
-      '<td>' + r(ds.erc, 0) + '</td>' +
-      '<td style="font-weight:600">' + r(bs.erc, 0) + '</td>' +
-      '<td>' + r(us.erc, 0) + '</td>' +
-    '</tr>' +
-    '<tr>' +
-      '<td>Breakeven Point</td>' +
-      '<td style="background:var(--red-light)">' + ds.bv + '</td>' +
-      '<td style="background:var(--amber-light)">' + bs.bv + '</td>' +
-      '<td style="background:var(--green-light)">' + us.bv + '</td>' +
+      '<td>ERC Net Revenue Share (SAR M)</td>' +
+      '<td style="background:var(--red-light)">' + r(low.erc) + '</td>' +
+      '<td style="background:var(--amber-light);font-weight:600">' + r(base.erc) + '</td>' +
+      '<td style="background:var(--green-light)">' + r(high.erc) + '</td>' +
     '</tr>';
 
-  // Bar chart
+  // ── Bar chart ──
   var years = [
-    { label: '2027',   rev: rev2027, cost: cost2027 },
-    { label: '2028-29',rev: rev2829, cost: cost2829 },
-    { label: '2030',   rev: rev2030, cost: cost2030 },
-    { label: '2031',   rev: rev2031, cost: cost2031 }
+    { label: '2027',    rev: rev2027, cost: cost2027 },
+    { label: '2028-29', rev: rev2829, cost: cost2829 },
+    { label: '2030',    rev: rev2030, cost: cost2030 },
+    { label: '2031',    rev: rev2031, cost: cost2031 }
   ];
   var maxVal = 0;
   for (var i = 0; i < years.length; i++) {
-    if (years[i].rev > maxVal)  maxVal = years[i].rev;
+    if (years[i].rev  > maxVal) maxVal = years[i].rev;
     if (years[i].cost > maxVal) maxVal = years[i].cost;
   }
   var H = 160;
